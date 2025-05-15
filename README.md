@@ -33,5 +33,5 @@ single space, no space before or after paragraphs, etc.
 ## Job Desc
 - Novan : Kumpulin Data Referensi, Membuat framework template
 - Nabil : 
-- Ferdy : 
+- Ferdy : Menambahkan fitur pada program, debugging code, masukkan pada framework template
 - Alam  : 
