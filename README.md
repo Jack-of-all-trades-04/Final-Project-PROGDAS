@@ -28,3 +28,9 @@ function.
 - A copy of the source code with the following specifications: font: Lucida Console, 10pt,
 single space, no space before or after paragraphs, etc.
 - Screen capture of the running program (not the code), for all cases.
+
+## Job Desc
+- Novan :
+- Nabil :
+- Ferdy :
+- Alam :
