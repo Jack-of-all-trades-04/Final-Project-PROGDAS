@@ -1,5 +1,6 @@
 # Final-Project-PROGDAS
-
+Program yang akan dibuat adalah program yang terdiri dari 2 fitur yaitu Kalkulator Penggunaan Air dan Survei/Kuesioner Mandiri untuk menguji kelayakan air hal ini sejalan
+dengan SDG nomor 6 "Sanitasi dan air bersih".
 ## Rubrik Penilaian
 ![Page 1](https://github.com/user-attachments/assets/7b519984-ff03-4bb7-b787-620388d206c6)
 ![Page 2](https://github.com/user-attachments/assets/4d19a2ce-37da-424b-84b0-35daa9526348)
@@ -30,7 +31,7 @@ single space, no space before or after paragraphs, etc.
 - Screen capture of the running program (not the code), for all cases.
 
 ## Job Desc
-- Novan :
-- Nabil :
-- Ferdy :
-- Alam :
+- Novan : Kumpulin Data Referensi, Membuat framework template
+- Nabil : 
+- Ferdy : 
+- Alam  : 
