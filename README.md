@@ -38,8 +38,27 @@ single space, no space before or after paragraphs, etc.
 ## Job Desc
 - Novan : Kumpulin Data Referensi, Membuat framework template
 - Nabil : 
-- Ferdy : 
+- Ferdy : Menambahkan fitur pada program, debugging code, masukkan pada framework template
 - Alam  : 
 
 ## Workflow Program
 ![Flowchart Program](https://github.com/user-attachments/assets/35a26297-1d09-40ec-9795-56559d85fd75)
+
+## Penjelasan Workflow program
+1. Program menghitung penggunaan air dalam kehidupan sehari-hari meliputi kegiatan berikut ini:
+-minum
+-mandi
+-mencuci piring
+-mencuci baju
+-ibadah
+-menyiram tanaman
+-dan kegiatan lainnya
+
+2.Program menentukan kelayakan air meliput beberapa indeks sebagai berikut:
+-PH air
+-Warna air
+-kekeruhan air
+-Bau air
+-Rasa air
+-Jumlah coliform
+-Nilai endapan
