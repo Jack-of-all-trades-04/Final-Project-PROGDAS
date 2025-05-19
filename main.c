@@ -98,4 +98,41 @@ void kalkulatorAir() {
 	printf ("\n|%18sBijak Air 1.0%18s|\n", "", "");
 	printf ("|%18sKalkulator Air%17s|\n", "", "");
 	for (i = 0; i < 51; i++) printf ("-");
+
+        int total_air = 0;
+        int minum, mandi, mencuci_piring, mencuci_baju, ibadah, menyiram_tanaman;  
+
+        printf("\nJawablah pertanyaan-pertanyaan berikut\n");
+        printf("1. Berapa nilai konsumsi air untuk minum hari ini (dalam liter)?: ");
+        scanf("%d", &minum);
+        total_air += minum;
+
+    
+        printf("2. Berapa nilai konsumsi air untuk mandi hari ini (dalam liter)?: ");
+	scanf("%d", &mandi);
+        total_air += mandi;
+
+        printf("3. Berapa nilai konsumsi air untuk mencuci piring hari ini (dalam liter)?: ");
+        scanf("%d", &mencuci_piring);
+        total_air += mencuci_piring;
+
+    
+        printf("4. Berapa nilai konsumsi air untuk mencuci baju hari ini (dalam liter)?: ");
+	scanf("%d", &mencuci_baju);
+        total_air += mencuci_baju;
+
+    
+        printf("5. Berapa nilai konsumsi air untuk ibadah (misalnya wudhu) hari ini (dalam liter)?: ");
+        scanf("%d", &ibadah);
+        total_air += ibadah;
+
+    	printf("6. Berapa nilai konsumsi air untuk menyiram tanaman hari ini (dalam liter)?: ");
+    	scanf("%d", &menyiram_tanaman);
+   	total_air += menyiram_tanaman;
+
+	
+	
+
+	
+	
 }
