@@ -46,19 +46,29 @@ single space, no space before or after paragraphs, etc.
 
 ## Penjelasan Workflow program
 1. Program menghitung penggunaan air dalam kehidupan sehari-hari meliputi kegiatan berikut ini:
--minum
--mandi
--mencuci piring
--mencuci baju
--ibadah
--menyiram tanaman
--dan kegiatan lainnya
+- minum
+- mandi
+- mencuci piring
+- mencuci baju
+- ibadah
+- menyiram tanaman
+- dan kegiatan lainnya
 
 2.Program menentukan kelayakan air meliput beberapa indeks sebagai berikut:
--PH air
--Warna air
--kekeruhan air
--Bau air
--Rasa air
--Jumlah coliform
--Nilai endapan
+- PH air
+- Warna air
+- kekeruhan air
+- Bau air
+- Rasa air
+- Jumlah coliform
+- Nilai endapan
+
+- Tanya User untuk memilih di antara 2 opsi yaitu kelayakan air atau penggunaan air
+- Pilihan pertama akan bertanya tentang kelayakan air
+- Apabila user memilih pilihan 1, maka mendapat pertanyaan tentang PH air berupa kadar PH kurang dari 6.5 atau lebih dari 8.5
+- Bila memenuhi salah satu maka skor kelayakan air bertambah 5
+- Lalu, user akan mendapatkan pertanyaan tentang nilai kekeruhan air, bila lebih dari 5 maka skor kelayakan air bertambah 5
+- Kemudian, user akan mendapatkan pertanyaan tentang skor bau dari air, nilai skor kelayakan air akan bertambah sesuai dengan nilai bau    dari air
+- Selanjutnya, user akan mendapatkan pertanyaan tentang rasa dari air, nilai skor kelayakan air akan bertambah sesuai dengan nilai rasa   dari air
+- Setelah itu, user akan mendapatkan pertanyaan tentang skor endapan air, nilai skor kelayakan air akan bertambah sesuai dengan nilai endapan dari air
+- Terakhir, user akan mendapatkan pertanyaan tentang jumlah bakteri, bila jumlah bakteri lebih dari 50 maka skor kelayakan air akan bertambah 5
