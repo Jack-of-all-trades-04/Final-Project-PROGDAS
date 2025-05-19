@@ -40,12 +40,12 @@ void startup() {
 
 void surveiMandiri() {
     float ph, kekeruhan, warna; 
-    int bau, rasa, endapan, coliform, skor = 0;
+    int bau, rasa, endapan, coliform, skor = 0, i;
 
-    for (int i = 0; i < 51; i++) printf ("-");
+    for (i = 0; i < 51; i++) printf ("-");
     printf ("\n|%18sBijak Air 1.0%18s|\n", "", "");
     printf ("|%18sSurvei Mandiri%17s|\n", "", "");
-    for (int i = 0; i < 51; i++) printf ("-");
+    for (i = 0; i < 51; i++) printf ("-");
 
     printf("\nJawablah pertanyaan-pertanyaan berikut\n");
     printf("1. Berapa nilai pH air?: "); 
@@ -63,17 +63,17 @@ void surveiMandiri() {
     if (warna > 50){
 		skor += 5;
 	}
-    printf("4. Berapa skor kebauan air? (0–5): ");
+    printf("4. Berapa skor kebauan air? (0-5): ");
     scanf("%d", &bau);
     if (bau >= 0 && bau <= 5){
 		skor += bau;
 	}
-    printf("5. Berapa rasa tidak sedap air? (0–5): ");
+    printf("5. Berapa rasa tidak sedap air? (0-5): ");
     scanf("%d", &rasa);
     if (rasa >= 0 && rasa <= 5) {
 		skor += rasa;
 	}
-    printf("6. Berapa skor endapan dalam air? (0–5): ");
+    printf("6. Berapa skor endapan dalam air? (0-5): ");
     scanf("%d", &endapan);
     if (endapan >= 0 && endapan <= 5){
 		skor += endapan;
