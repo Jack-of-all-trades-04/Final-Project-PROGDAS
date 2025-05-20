@@ -208,15 +208,12 @@ void surveiMandiri() {
     startup();
 }
 
-
-
 void kalkulatorAir() {
 	int i, input = 0;
 	for (i = 0; i < 51; i++) printf ("-");
 	printf ("\n|%18sBijak Air 1.0%18s|\n", "", "");
 	printf ("|%18sKalkulator Air%17s|\n", "", "");
 	for (i = 0; i < 51; i++) printf ("-");
-	
     int total_air = 0;
     int minum, mandi, mencuci_piring, mencuci_baju, ibadah, menyiram_tanaman;  
 	printf("\nJawablah pertanyaan-pertanyaan berikut\n");
