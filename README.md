@@ -63,6 +63,7 @@ single space, no space before or after paragraphs, etc.
 - Jumlah coliform
 - Nilai endapan
 
+Flow program 
 - Tanya User untuk memilih di antara 2 opsi yaitu kelayakan air atau penggunaan air
 - Pilihan pertama akan bertanya tentang kelayakan air
 - Apabila user memilih pilihan 1, maka mendapat pertanyaan tentang PH air berupa kadar PH kurang dari 6.5 atau lebih dari 8.5
