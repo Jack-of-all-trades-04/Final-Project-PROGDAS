@@ -63,7 +63,7 @@ single space, no space before or after paragraphs, etc.
 - Jumlah coliform
 - Nilai endapan
 
-Flow program 
+Flow program untuk kelayakan air
 - Tanya User untuk memilih di antara 2 opsi yaitu kelayakan air atau penggunaan air
 - Pilihan pertama akan bertanya tentang kelayakan air
 - Apabila user memilih pilihan 1, maka mendapat pertanyaan tentang PH air berupa kadar PH kurang dari 6.5 atau lebih dari 8.5
@@ -73,3 +73,10 @@ Flow program
 - Selanjutnya, user akan mendapatkan pertanyaan tentang rasa dari air, nilai skor kelayakan air akan bertambah sesuai dengan nilai rasa   dari air
 - Setelah itu, user akan mendapatkan pertanyaan tentang skor endapan air, nilai skor kelayakan air akan bertambah sesuai dengan nilai endapan dari air
 - Terakhir, user akan mendapatkan pertanyaan tentang jumlah bakteri, bila jumlah bakteri lebih dari 50 maka skor kelayakan air akan bertambah 5
+
+flow program untuk penggunaan air
+- Tanya user konsumsi air minum untuk satu hari lalu total penggunaan air akan bertambah
+- Lalu user akan ditanya tentang konsumsi air untuk mandi kemudian akan membuat total penggunaan air ditambah sebelumnya
+- Kemudian user akan mendapat pertanyaan penggunaan air untuk mencuci piring lalu membuat total penggunaan air ditambah sebelumnya
+- Selanjutnya user akan ditanya tentang penggunaan air untuk mencuci baju kemudian akan ditambah total penggunaan air sebelumnya
+- Setelah itu user juga mendapat pertanyaan penggunaan air untuk ibadah dan menyiram tanaman hingga mendapat total penggunaan air satu hari
