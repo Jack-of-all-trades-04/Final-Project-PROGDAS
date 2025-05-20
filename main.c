@@ -246,3 +246,16 @@ void skalaASCII(char keyword[]) {
 	for (i = 1; i < panjang; i++) printf (" ");
 	printf ("|\n");
 }
+
+//AsCII ART
+printf("                 /\   ");
+printf("                /  \");
+printf("               /    \");
+printf("              /      \");
+printf("             /        \");
+printf("            /          \");
+printf("           /            \");
+printf("          /              \n");
+    printf("     ;                ;\n");
+    printf("     \                /\n");
+    printf("      `-.__..__..__..`      '\n");
