@@ -231,27 +231,27 @@ void kalkulatorAir() {
     int total_air = 0;
     int minum, mandi, mencuci_piring, mencuci_baju, ibadah, menyiram_tanaman;  
     printf("\nJawablah pertanyaan-pertanyaan berikut\n");
-    printf("1. Berapa nilai konsumsi air untuk minum hari ini (dalam liter)?: \n");
+    printf("1. Berapa nilai konsumsi air untuk minum hari ini (dalam liter)?: ");
     scanf("%d", &minum);
     total_air += minum;
 	
-    printf("2. Berapa nilai konsumsi air untuk mandi hari ini (dalam liter)?: \n");
+    printf("2. Berapa nilai konsumsi air untuk mandi hari ini (dalam liter)?: ");
     scanf("%d", &mandi);
     total_air += mandi;
 	
-    printf("3. Berapa nilai konsumsi air untuk mencuci piring hari ini (dalam liter)?: \n");
+    printf("3. Berapa nilai konsumsi air untuk mencuci piring hari ini (dalam liter)?: ");
     scanf("%d", &mencuci_piring);
     total_air += mencuci_piring;
 	
-    printf("4. Berapa nilai konsumsi air untuk mencuci baju hari ini (dalam liter)?: \n ");
+    printf("4. Berapa nilai konsumsi air untuk mencuci baju hari ini (dalam liter)?: ");
     scanf("%d", &mencuci_baju);
     total_air += mencuci_baju;
     
-    printf("5. Berapa nilai konsumsi air untuk ibadah (misalnya wudhu) hari ini (dalam liter)?: \n");
+    printf("5. Berapa nilai konsumsi air untuk ibadah (misalnya wudhu) hari ini (dalam liter)?: ");
     scanf("%d", &ibadah);
     total_air += ibadah;
     
-    printf("6. Berapa nilai konsumsi air untuk menyiram tanaman hari ini (dalam liter)?: \n");
+    printf("6. Berapa nilai konsumsi air untuk menyiram tanaman hari ini (dalam liter)?: ");
     scanf("%d", &menyiram_tanaman);
     total_air += menyiram_tanaman;
 
@@ -318,7 +318,7 @@ void skalaASCII(char keyword[]) {
 int penilaianSurvei(dataAir data, int alat[]) {
 	float skor = 0, alatTerpakai = 0;
 	
-	skor += ( (5 - data.bau) / 5) * 20;
+	skor += ( (5 - data.bau) / 5) * 20; //Skor tidak bertambah ketika dicoba di debugger
 	
 	if (alat[0] == 1) {
 		alatTerpakai++;
