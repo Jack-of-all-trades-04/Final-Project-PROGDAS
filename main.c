@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
+#include <ctype.h>
 
-void membuatBox(char teks);
 void startup();
 void surveiMandiri();
 void kalkulatorAir();
@@ -13,16 +14,13 @@ typedef enum {
 }penggunaanAir;
 
 typedef struct {
-	float pH, TCU, TDS, eColi;
+	float pH, eColi, TCU;
 	int bau, rasa, endapan, diare;
+	
 	union {
 		float decimal;
 		int integer;
 	}kekeruhan;
-	union {
-		float decimal;
-		int integer;
-	}warnaAir;
 	
 }dataAir;
 
@@ -34,6 +32,8 @@ int main() {
 	startup();
 	return 0;
 }
+
+int penilaianSurvei(dataAir data, int alat[]);
 
 void startup() {
 	int i, input = 0;
@@ -66,8 +66,7 @@ void startup() {
 }
 
 void surveiMandiri() {
-    float ph, kekeruhan, warna; 
-    int bau, rasa, endapan, coliform, skor = 0, i;
+    int i, skor, alat[3];
 	dataAir data;
 	char input = 'a', temp[20];
     for (i = 0; i < 51; i++) printf ("-");
@@ -94,11 +93,13 @@ void surveiMandiri() {
 	while(input != 'Y' && input != 'N') {
 		printf ("\n|Jawaban Anda : ");
 		scanf (" %c", &input);
+		input = toupper(input);
 		if (input != 'Y' && input != 'N') printf ("|Jawaban tidak valid, hanya menerima 'Y' dan 'N'  |");
 	}
 	
 	switch(input) {
 		case 'Y' :
+			alat[0] = 1;
 			printf ("|2.b Berapa NTU yang muncul?%22s|\n", "");
     		data.kekeruhan.decimal = -1;
     		while (data.kekeruhan.decimal <= 0) {
@@ -108,15 +109,16 @@ void surveiMandiri() {
     			if (data.kekeruhan.decimal <= 0) printf ("|Jawaban tidak valid, coba lagi%19s|\n", "");
 			}
 			printf ("|2.c Berapa TCU yang muncul?%22s|\n", "");
-    		data.warnaAir.decimal = -1;
-    		while (data.warnaAir.decimal <= 0) {
+    		data.TCU = -1;
+    		while (data.TCU <= 0) {
     			printf ("|Jawaban Anda : ");
     			scanf ("%s", &temp);
-    			data.warnaAir.decimal = atof(temp);
-    			if (data.warnaAir.decimal <= 0) printf ("|Jawaban tidak valid, coba lagi%19s|\n", "");
+    			data.TCU = atof(temp);
+    			if (data.TCU <= 0) printf ("|Jawaban tidak valid, coba lagi%19s|\n", "");
 			}
 			break;
 		case 'N' :
+			alat[0] = 0;
 			printf ("|2.b Seberapa kotor air Anda?%21s|", "");
     		skalaASCII("Kotor");
     		data.bau = 0;
@@ -134,10 +136,12 @@ void surveiMandiri() {
     while(input != 'Y' && input != 'N') {
 		printf ("\n|Jawaban Anda : ");
 		scanf (" %c", &input);
+		input = toupper(input);
 		if (input != 'Y' && input != 'N') printf ("|Jawaban tidak valid, hanya menerima 'Y' dan 'N'  |");
 	}
 	data.pH = -1;
 	if (input == 'Y') {
+		alat[1] = 1;
 		printf ("|3.b Masukkan pH yang terukur%21s|\n", "");
 		while (data.pH <= 0 || data.pH > 14) {
     		printf ("|Jawaban Anda : ");
@@ -147,6 +151,7 @@ void surveiMandiri() {
 		}
 	}
 	else {
+		alat[1] = 0;
 		printf ("|3.b Seberapa berasa air Anda?%20s|", "");
 	    skalaASCII("Berasa");
 	    data.rasa = 0;
@@ -177,10 +182,12 @@ void surveiMandiri() {
     while(input != 'Y' && input != 'N') {
 		printf ("\n|Jawaban Anda : ");
 		scanf (" %c", &input);
+		input = toupper(input);
 		if (input != 'Y' && input != 'N') printf ("|Jawaban tidak valid, hanya menerima 'Y' dan 'N'  |");
 	}
 	
 	if (input == 'Y') {
+		alat[2] = 1;
 		printf ("|5.b Masukkan angka CFU/100mL%21s|\n", "");
 		data.eColi = -1;
     	while (data.eColi <= 0) {
@@ -191,6 +198,7 @@ void surveiMandiri() {
 		}
 	}
 	else {
+		alat[2] = 0;
 		printf ("|5.b Apakah anda sering diare?%20s|", "");
 		skalaASCII("Sering");
 		data.diare = -1;
@@ -201,6 +209,8 @@ void surveiMandiri() {
 	    	if (data.diare < 1 || data.diare > 5) printf ("|Jawaban tidak valid, coba lagi%19s|\n", "");
 		}
 	}
+	
+	skor = penilaianSurvei(data, alat);
 	
     // Tampilkan hasil dan kembali ke menu startup
     printf("\nHasil Penilaian:\n");
@@ -245,4 +255,43 @@ void skalaASCII(char keyword[]) {
 	printf ("\n|Tidak %s %20s Sangat %s", keyword, "", keyword);
 	for (i = 1; i < panjang; i++) printf (" ");
 	printf ("|\n");
+}
+
+int penilaianSurvei(dataAir data, int alat[]) {
+	float skor = 0, alatTerpakai = 0;
+	
+	skor += (5 - data.bau / 5) * 20;
+	
+	if (alat[0] == 1) {
+		alatTerpakai++;
+		if (data.kekeruhan.decimal <= 5) skor += (1 - (data.kekeruhan.decimal / 5) ) * 15;
+		if (data.TCU <= 50) skor += (1 - (data.TCU / 50)) * 10;
+	}
+	else {
+		skor += (5 - data.kekeruhan.integer / 5) * 25;
+	}
+	
+	if (alat[1] == 1) {
+		alatTerpakai++;
+		float range = 0;
+		if (data.pH < 6.5) range = fabs(data.pH - 6.5);
+		else if (data.pH > 8.5) range = fabs(data.pH - 8.5);
+		else if (data.pH >= 6.5 && data.pH <= 8.5) skor += 20;
+		if (range != 0) skor += (1 - (range / 3)) * 20;
+	}
+	else {
+		skor += (5 - data.rasa / 5) * 20;
+	}
+	
+	skor += (5 - data.endapan / 5) * 15;
+	
+	if (alat[2] == 1) {
+		alatTerpakai++;
+		if (data.eColi <= 50) skor += (data.eColi / 50) * 20;
+	}
+	else {
+		skor += (5 - data.diare / 5) * 20;
+	}
+	
+	return skor;
 }
