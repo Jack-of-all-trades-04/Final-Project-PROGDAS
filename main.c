@@ -277,21 +277,28 @@ void kalkulatorAir() {
 			printf("BOROS\n");
 			break;
 	}
-	if(kategori == BOROS) {
-		char pilihan[50];
-		printf("Apakah anda butuh saran untuk bisa mengurangi penggunaan air?\n");
-		printf("Ketik IYA bila anda membutuhkan saran untuk mengurangi penggunaan air\n");
-		scanf("%s", &pilihan);
+	if (kategori == BOROS) {
+        char pilihan[50];
+        printf("\nApakah anda butuh saran untuk bisa mengurangi penggunaan air?\n");
+        printf("Ketik IYA atau TIDAK: ");
+        scanf("%s", pilihan);
 
-		if(strcmp(pilihan, "IYA") == 0 || strcmp(pilihan, "iya") == 0){
-			printf("Berikut ini saran untuk anda bisa menghemat air\n");
-			printf("1.Matikan keran air bila tidak digunakan\n");
-			printf("2.Mengecek pipa secara berkala\n");
-			printf("3.Menampung air hujan\n");
-		} else {
-			printf("Apakah anda butuh saran tambahan lainnya?\n");
-		}
-	}	
+        // Normalisasi ke huruf kecil
+        for (int i = 0; pilihan[i]; i++) {
+            pilihan[i] = tolower(pilihan[i]);
+        }
+
+        if (strcmp(pilihan, "iya") == 0) {
+            printf("\nBerikut ini saran untuk anda bisa menghemat air:\n");
+            printf("1. Matikan keran air bila tidak digunakan\n");
+            printf("2. Mengecek pipa secara berkala\n");
+            printf("3. Menampung air hujan\n");
+        } else if (strcmp(pilihan, "tidak") == 0) {
+            printf("Baik, semoga penggunaan air anda bisa lebih hemat ke depannya.\n");
+        } else {
+            printf("Input tidak dikenali. Silakan ketik IYA atau TIDAK.\n");
+        }
+    }
 	
 	
    
