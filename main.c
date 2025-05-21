@@ -296,14 +296,14 @@ int penilaianSurvei(dataAir data, int alat[]) {
 	return skor;
 }
 
-printf("                 /\   ");
-printf("                /  \");
-printf("               /    \");
-printf("              /      \");
-printf("             /        \");
-printf("            /          \");
-printf("           /            \");
-printf("          /              \n");
-    printf("     ;                ;\n");
-    printf("     \                /\n");
-    printf("      `-.__..__..__..`      '\n");
+printf("                 /\    \n");
+printf("                /  \    \n");
+printf("               /    \    \n");
+printf("              /      \    \n");
+printf("             /        \    \n");
+printf("            /          \    \n ");
+printf("           /            \    \n");
+printf("          /              \     \n");
+printf("         ;                ;     \n");
+printf("         \                /      \n");
+printf("          `-.__..__..__..`      '\n");
