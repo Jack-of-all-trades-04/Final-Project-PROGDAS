@@ -260,7 +260,7 @@ void skalaASCII(char keyword[]) {
 int penilaianSurvei(dataAir data, int alat[]) {
 	float skor = 0, alatTerpakai = 0;
 	
-	skor += (5 - data.bau / 5) * 20;
+	skor += (data.bau / 5) * 20;
 	
 	if (alat[0] == 1) {
 		alatTerpakai++;
@@ -268,7 +268,7 @@ int penilaianSurvei(dataAir data, int alat[]) {
 		if (data.TCU <= 50) skor += (1 - (data.TCU / 50)) * 10;
 	}
 	else {
-		skor += (5 - data.kekeruhan.integer / 5) * 25;
+		skor += (data.kekeruhan.integer / 5) * 25;
 	}
 	
 	if (alat[1] == 1) {
@@ -280,18 +280,30 @@ int penilaianSurvei(dataAir data, int alat[]) {
 		if (range != 0) skor += (1 - (range / 3)) * 20;
 	}
 	else {
-		skor += (5 - data.rasa / 5) * 20;
+		skor += (data.rasa / 5) * 20;
 	}
 	
-	skor += (5 - data.endapan / 5) * 15;
+	skor += (data.endapan / 5) * 15;
 	
 	if (alat[2] == 1) {
 		alatTerpakai++;
 		if (data.eColi <= 50) skor += (data.eColi / 50) * 20;
 	}
 	else {
-		skor += (5 - data.diare / 5) * 20;
+		skor += (data.diare / 5) * 20;
 	}
 	
 	return skor;
 }
+
+printf("                 /\   ");
+printf("                /  \");
+printf("               /    \");
+printf("              /      \");
+printf("             /        \");
+printf("            /          \");
+printf("           /            \");
+printf("          /              \n");
+    printf("     ;                ;\n");
+    printf("     \                /\n");
+    printf("      `-.__..__..__..`      '\n");
