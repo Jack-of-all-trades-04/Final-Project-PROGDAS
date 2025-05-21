@@ -44,14 +44,15 @@ void startup() {
 	for (i = 0; i < 51; i++) printf ("-");
 	printf ("\n|Silahkan pilih opsi yang tersedia :%14s|", "");
 	printf ("\n|1. Survei Mandiri Kelayakan Air%18s|", "");
-	printf ("\n|2. Kalkulator Penggunaan Air%21s|\n", "");
+	printf ("\n|2. Kalkulator Penggunaan Air%21s|", "");
+	printf ("\n|3. Keluar%40s|\n", "");
 	for (i = 0; i < 51; i++) printf ("-");
 	
-	while (input < 1 || input > 2) {
+	while (input < 1 || input > 3) {
 		printf ("\nOpsi Yang Anda Pilih : ");
 		scanf ("%s", &temp);
 		input = atoi(temp);
-		if (input < 1 || input > 2) {
+		if (input < 1 || input > 3) {
 			puts ("Opsi tidak valid, masukkan ulang.");
 		}
 	}
@@ -59,9 +60,13 @@ void startup() {
 	switch (input) {
 		case 1 :
 			surveiMandiri();
+			startup();
 			break;
 		case 2 :
 			kalkulatorAir();
+			startup();
+			break;
+		case 3 :
 			break;
 	}
 }
@@ -215,7 +220,6 @@ void surveiMandiri() {
     // Tampilkan hasil dan kembali ke menu startup
     printf("\nHasil Penilaian:\n");
     printf("Skor Kelayakan Air: %d\n", skor);
-    startup();
 }
 
 void kalkulatorAir() {
