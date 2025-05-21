@@ -36,10 +36,10 @@ single space, no space before or after paragraphs, etc.
 ![Penggunaan Air](https://github.com/user-attachments/assets/3040daf2-322d-42d4-a197-4cd64ba2fbe6)
 
 ## Job Desc
-- Novan : Kumpulin Data Referensi, Membuat framework template
-- Nabil : 
-- Ferdy : Menambahkan fitur pada program, debugging code, masukkan pada framework template
-- Alam  : 
+- Novan : Kumpulin Data Referensi, Membuat framework template dan Membuat Fungsi Survei Dasar
+- Nabil : Menyempurnakan Fungsi Survei dan Memperbaiki Penilaian Survei
+- Ferdy : Menambahkan fitur pada program, Debugging code dan Masukkan pada framework template
+- Alam  : Menyempurnakan Fungsi Kalkulator dan Debugging Code
 
 ## Workflow Program
 ![Flowchart Program](https://github.com/user-attachments/assets/35a26297-1d09-40ec-9795-56559d85fd75)
