@@ -8,6 +8,7 @@ void startup();
 void surveiMandiri();
 void kalkulatorAir();
 void skalaASCII(char keyword[]);
+void badgeBijakAir();
 
 typedef enum {
 	KURANG, IDEAL, BOROS
@@ -25,7 +26,7 @@ typedef struct {
 }dataAir;
 
 typedef enum {
-	TIDAKAKURAT, CUKUPAKURAT, AKURAT
+	TIDAKAKURAT, CUKUPAKURAT, AKURAT, SANGATAKURAT
 }sistemPenilaian;
 
 int main() {
@@ -79,7 +80,7 @@ void surveiMandiri() {
     
     printf ("\n|1. Seberapa bau air Anda?%24s|", "");
     skalaASCII("Bau");
-    data.bau = 0;
+    data.bau = -1;
     while (data.bau < 1 || data.bau > 5) {
     	printf ("|Jawaban Anda : ");
     	scanf ("%s", &temp);
@@ -121,7 +122,6 @@ void surveiMandiri() {
 			alat[0] = 0;
 			printf ("|2.b Seberapa kotor air Anda?%21s|", "");
     		skalaASCII("Kotor");
-    		data.bau = 0;
     		while (data.kekeruhan.integer < 1 || data.kekeruhan.integer > 5) {
     			printf ("|Jawaban Anda : ");
     			scanf ("%s", &temp);
@@ -260,15 +260,17 @@ void skalaASCII(char keyword[]) {
 int penilaianSurvei(dataAir data, int alat[]) {
 	float skor = 0, alatTerpakai = 0;
 	
-	skor += (data.bau / 5) * 20;
+	skor += ( (5 - data.bau) / 5) * 20;
 	
 	if (alat[0] == 1) {
 		alatTerpakai++;
-		if (data.kekeruhan.decimal <= 5) skor += (1 - (data.kekeruhan.decimal / 5) ) * 15;
-		if (data.TCU <= 50) skor += (1 - (data.TCU / 50)) * 10;
+		if (data.kekeruhan.decimal > 5) skor += (1 - (data.kekeruhan.decimal / 5) ) * 15;
+		else skor += 15;
+		if (data.TCU > 50) skor += (1 - (data.TCU / 50)) * 10;
+		else skor += 10;
 	}
 	else {
-		skor += (data.kekeruhan.integer / 5) * 25;
+		skor += ( (5 - data.kekeruhan.integer) / 5) * 25;
 	}
 	
 	if (alat[1] == 1) {
@@ -280,30 +282,42 @@ int penilaianSurvei(dataAir data, int alat[]) {
 		if (range != 0) skor += (1 - (range / 3)) * 20;
 	}
 	else {
-		skor += (data.rasa / 5) * 20;
+		skor +=  ( (5 - data.rasa) / 5) * 20;
 	}
 	
-	skor += (data.endapan / 5) * 15;
+	skor += ( (5 - data.endapan) / 5) * 15;
 	
 	if (alat[2] == 1) {
 		alatTerpakai++;
-		if (data.eColi <= 50) skor += (data.eColi / 50) * 20;
+		if (data.eColi > 50) skor += (data.eColi / 50) * 20;
+		else skor += 20;
 	}
 	else {
-		skor += (data.diare / 5) * 20;
+		skor += ( (5 - data.diare) / 5) * 20;
 	}
-	
+	/* Jika skor < 50 = Tidak layak, 50 - 69 = Hati-hati
+	70 - 84 = Layak, 85 - 100 = Sangat Layak 
+	Jika alat terpakai = 0 maka pakai enum TIDAKAKURAT
+	jika alat terpakai = 1 maka pakai enum CUKUPAKURAT
+	jika alat terpakai = 2 maka pakai enum AKURAT
+	jika alat terpakai = 3 maka pakai enum SANGATAKURAT
+	Kemudian dibuat Akurasi berdasarkan enumnya, Alat terpakai > 2 maka
+	tampilkan Akurasi : 80 - 100%
+	sisanya Akurasi : 60 - 80%
+	*/
 	return skor;
 }
 
-printf("                 /\    \n");
-printf("                /  \    \n");
-printf("               /    \    \n");
-printf("              /      \    \n");
-printf("             /        \    \n");
-printf("            /          \    \n ");
-printf("           /            \    \n");
-printf("          /              \     \n");
-printf("         ;                ;     \n");
-printf("         \                /      \n");
-printf("          `-.__..__..__..`      '\n");
+void badgeBijakAir() {
+	printf("                 /\\    \n");
+	printf("                /  \\    \n");
+	printf("               /    \\    \n");
+	printf("              /      \\    \n");
+	printf("             /        \\    \n");
+	printf("            /          \\    \n ");
+	printf("          /            \\    \n");
+	printf("          /              \\     \n");
+	printf("         ;                ;     \n");
+	printf("         \\                /      \n");
+	printf("          `-.__..__..__..`      \n");
+}
