@@ -230,26 +230,59 @@ void kalkulatorAir() {
 	for (i = 0; i < 51; i++) printf ("-");
     int total_air = 0;
     int minum, mandi, mencuci_piring, mencuci_baju, ibadah, menyiram_tanaman;  
-	printf("\nJawablah pertanyaan-pertanyaan berikut\n");
+    printf("\nJawablah pertanyaan-pertanyaan berikut\n");
     printf("1. Berapa nilai konsumsi air untuk minum hari ini (dalam liter)?: ");
     scanf("%d", &minum);
     total_air += minum;
+	
     printf("2. Berapa nilai konsumsi air untuk mandi hari ini (dalam liter)?: ");
-	scanf("%d", &mandi);
+    scanf("%d", &mandi);
     total_air += mandi;
-	printf("3. Berapa nilai konsumsi air untuk mencuci piring hari ini (dalam liter)?: ");
+	
+    printf("3. Berapa nilai konsumsi air untuk mencuci piring hari ini (dalam liter)?: ");
     scanf("%d", &mencuci_piring);
     total_air += mencuci_piring;
+	
     printf("4. Berapa nilai konsumsi air untuk mencuci baju hari ini (dalam liter)?: ");
-	scanf("%d", &mencuci_baju);
+    scanf("%d", &mencuci_baju);
     total_air += mencuci_baju;
+    
     printf("5. Berapa nilai konsumsi air untuk ibadah (misalnya wudhu) hari ini (dalam liter)?: ");
     scanf("%d", &ibadah);
     total_air += ibadah;
+    
     printf("6. Berapa nilai konsumsi air untuk menyiram tanaman hari ini (dalam liter)?: ");
     scanf("%d", &menyiram_tanaman);
-   	total_air += menyiram_tanaman;
+    total_air += menyiram_tanaman;
+
+    penggunaanAir kategori;
+	if(total_air < 100){
+		kategori = KURANG;
+	} else if (total_air <= 250) {
+		kategori = IDEAL;
+	} else {
+		kategori = BOROS;
+	}
+
+	printf("Penggunaan air selama satu hari sebanyak: %d liter\m",total_air);
+	printf("kategori penggunaan air: ");
+	switch (kategori) {
+		case KURANG:
+			printf("KURANG\n");
+			break;
+		case IDEAL:
+			printf("IDEAL\n");
+			break;
+		case BOROS:
+			printf("BOROS\n");
+			break;
+	}
+		
+	
+	
+   
    	
+
 }
 
 void skalaASCII(char keyword[]) {
