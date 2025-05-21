@@ -215,7 +215,25 @@ void surveiMandiri() {
     // Tampilkan hasil dan kembali ke menu startup
     printf("\nHasil Penilaian:\n");
     printf("Skor Kelayakan Air: %d\n", skor);
+	if (skor < 50) {
+		printf("Tingkat Kelayakan Air: Tidak Layak\n");
+	} else if (skor < 70) {
+		printf("Tingkat Kelayakan Air: Hati-hati\n");
+	} else if (skor < 85) {
+		printf("Tingkat Kelayakan Air: Layak\n");
+	} else {
+		printf("Tingkat Kelayakan Air: Sangat Layak\n");
+	}
+	// If alat terpakai > 2 maka tampilkan Akurasi : 80 - 100%
+	// sisanya Akurasi : 60 - 80%
+	if (alat[0] + alat[1] + alat[2] > 2) {
+		printf("Akurasi: 80 - 100% \n");
+	} else {
+		printf("Akurasi: 60 - 80% \n");
+	}
+	
     startup();
+
 }
 
 void kalkulatorAir() {
