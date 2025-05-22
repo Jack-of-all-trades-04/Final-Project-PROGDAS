@@ -2,6 +2,15 @@
 Program yang akan dibuat adalah program yang terdiri dari 2 fitur yaitu Kalkulator Penggunaan Air dan Survei/Kuesioner Mandiri untuk menguji kelayakan air hal ini sejalan
 dengan SDG nomor 6 "Sanitasi dan air bersih".
 
+## Anggota Kelompok 9 (Rust) :
+|NPM       |Nama                  |Username GITHUB      |
+|----------|----------------------|---------------------|
+|2406353723|Ferdyano              |Ferdyano01           |
+|2406420892|Mohamad Rizky Alamsyah|cosmicdust00         |	
+|2406416024|Nabil Putra Nurfariz  |Naputriz             |	
+|2406401294|Novan Agung Wicaksono |Jack-of-all-trades-04|
+
+
 ## Rubrik Penilaian
 ![Page 1](https://github.com/user-attachments/assets/7b519984-ff03-4bb7-b787-620388d206c6)
 ![Page 2](https://github.com/user-attachments/assets/4d19a2ce-37da-424b-84b0-35daa9526348)
