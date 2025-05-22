@@ -32,8 +32,41 @@ single space, no space before or after paragraphs, etc.
 - Screen capture of the running program (not the code), for all cases.
 
 ## Ringkasan Data Variabel
-![Survei Kelayakan Air](https://github.com/user-attachments/assets/6c3d8239-fabd-4d31-8a90-6c6a69a9b877)
-![Penggunaan Air](https://github.com/user-attachments/assets/3040daf2-322d-42d4-a197-4cd64ba2fbe6)
+### 1. Variabel Kuesioner Mandiri (Survei Kelayakan Air)
+
+| Kategori           | Variabel                          | Skala / Batas Ideal                                   | Sumber & Catatan                                         |
+|--------------------|-----------------------------------|--------------------------------------------------------|----------------------------------------------------------|
+| **Sensorik / Fisik** | pH                                | 6.5 – 8.5                                               | Sesuai WHO & Permenkes RI                            |
+|                    | Kekeruhan (Turbidity)             | ≤ 5 NTU (ideal < 1 NTU)                                | WHO: untuk small supplies ≤ 5 NTU                        |
+|                    | Warna (True Colour)               | ≤ 50 TCU                                               | Permenkes RI                                            |
+|                    | Bau                               | Skala 0 (tidak berbau) – 5 (sangat menyengat)          | Definisi umum air bersih                                 |
+|                    | Rasa                              | Skala 0 (tawar) – 5 (sangat pahit/logam)               | Definisi umum air bersih                                 |
+| **Endapan & Padatan** | TDS (Total Dissolved Solids)     | ≤ 1000 mg/L                                            | Permenkes RI                                          |
+|                    | Endapan setelah didiamkan         | Skala 0 (tidak ada) – 5 (banyak)                       | —                                                        |
+| **Mikrobiologi**     | Total coliform                    | 0–50 CFU/100 mL                                        | Permenkes RI                                          |
+|                    | Escherichia coli (E. coli)        | 0 CFU/100 mL                                           | WHO & Permenkes RI                                       |
+| **Kimiawi (berisiko)**| Arsenik (As)                     | ≤ 10 µg/L (WHO), ≤ 50 µg/L (RI)                        | WHO & Permenkes RI                                    |
+|                    | Fluorida (F⁻)                     | ≤ 1.5 mg/L                                             | WHO & Permenkes RI                                       |
+|                    | Nitrat (NO₃⁻)                     | ≤ 50 mg/L (WHO), ≤ 10 mg/L (RI)                        | WHO & Permenkes RI                                       |
+|                    | Logam Berat Lain (Pb, Cd, Hg, Mn, ...) | Sesuai lampiran Permenkes RI                         | Permenkes RI                                         |
+
+### 2. Variabel Kalkulator Penggunaan Air Domestik
+| Aktivitas               | Variabel & Unit        | Faktor Konversi ke Liter         | Batas & Kategori WHO          |
+|------------------------|------------------------|----------------------------------|-------------------------------|
+| Minum                  | `air_minum` (L/hari)    | langsung input                   | Ideal 2–3 L/hari              |
+| Mandi                  | `mandi` (# kali/hari)   | × 35 L per kali                  | —                             |
+| Cuci piring            | `cuci_piring` (#/hari)  | × 10 L per kali                  | —                             |
+| Cuci baju              | `cuci_baju` (#/minggu)  | × 60 L per kali ÷ 7 hari         | —                             |
+| Wudhu / Cuci tangan    | `wudhu` (#/hari)        | × 3 L per kali                   | —                             |
+| Siram tanaman          | `siram_tanaman` (L)     | langsung input                   | —                             |
+| Lain-lain (toilet, dsb)| `lain_lain` (L/hari)    | estimasi / langsung input        | —                             |
+
+**Total penggunaan per hari = jumlah semua aktivitas.**
+
+Bandingkan dengan pedoman WHO 50–100 L/orang/hari:
+- `< 50 L → “Perlu Perhatian Kebersihan”`
+- `50–100 L → “Ideal”`
+- `> 100 L → “Boros”`
 
 ## Job Desc
 - Novan : Kumpulin Data Referensi, Membuat framework template dan Membuat Fungsi Survei Dasar
