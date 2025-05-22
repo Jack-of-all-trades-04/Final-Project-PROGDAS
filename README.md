@@ -80,3 +80,7 @@ flow program untuk penggunaan air
 - Kemudian user akan mendapat pertanyaan penggunaan air untuk mencuci piring lalu membuat total penggunaan air ditambah sebelumnya
 - Selanjutnya user akan ditanya tentang penggunaan air untuk mencuci baju kemudian akan ditambah total penggunaan air sebelumnya
 - Setelah itu user juga mendapat pertanyaan penggunaan air untuk ibadah dan menyiram tanaman hingga mendapat total penggunaan air satu hari
+- Saat user telah memasukkan semua penggunaan air dalam satu hari maka akan menampilkan totoal penggunaan air selama satu hari
+- Penggunaan air selama satu hari akan dikelompokkan menjadi tiga jenis yaitu kurang, ideal, dan boros
+- Apabila penggunaan air boros maka user bisa mendapatkan saran untuk menghemat air
+- User yang tidak memilih pilihan saran maka membuat program menghitung air selesai
