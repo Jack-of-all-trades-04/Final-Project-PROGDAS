@@ -216,7 +216,7 @@ void surveiMandiri() {
 	}
 	
 	skor = penilaianSurvei(data, alat);
-	
+
 	for (i = 0; i < 51; i++) printf ("-");
     printf("\n|%18sHasil Penilaian%16s|\n", "", "");
     sprintf (temp, "%d", skor);
