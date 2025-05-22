@@ -98,7 +98,7 @@ void surveiMandiri() {
 	
 	while(input != 'Y' && input != 'N') {
 		printf ("\n|Jawaban Anda : ");
-		scanf (" %c", &input);
+		scanf (" %s", &input);
 		input = toupper(input);
 		if (input != 'Y' && input != 'N') printf ("|Jawaban tidak valid, hanya menerima 'Y' dan 'N'  |");
 	}
@@ -140,7 +140,7 @@ void surveiMandiri() {
     input = 'a';
     while(input != 'Y' && input != 'N') {
 		printf ("\n|Jawaban Anda : ");
-		scanf (" %c", &input);
+		scanf (" %s", &input);
 		input = toupper(input);
 		if (input != 'Y' && input != 'N') printf ("|Jawaban tidak valid, hanya menerima 'Y' dan 'N'  |");
 	}
@@ -186,7 +186,7 @@ void surveiMandiri() {
     input = 'a';
     while(input != 'Y' && input != 'N') {
 		printf ("\n|Jawaban Anda : ");
-		scanf (" %c", &input);
+		scanf (" %s", &input);
 		input = toupper(input);
 		if (input != 'Y' && input != 'N') printf ("|Jawaban tidak valid, hanya menerima 'Y' dan 'N'  |");
 	}
@@ -217,9 +217,96 @@ void surveiMandiri() {
 	
 	skor = penilaianSurvei(data, alat);
 	
-    // Tampilkan hasil dan kembali ke menu startup
-    printf("\nHasil Penilaian:\n");
-    printf("Skor Kelayakan Air: %d\n", skor);
+	for (i = 0; i < 51; i++) printf ("-");
+    printf("\n|%18sHasil Penilaian%16s|\n", "", "");
+    sprintf (temp, "%d", skor);
+    printf("|Skor Kelayakan Air: %-29s|\n|", temp);
+	printf ("Tingkat Kelayakan Air : ");
+	if (skor < 50) {
+		printf("Tidak Layak%26s|\n","");
+	} else if (skor < 70) {
+		printf("Hati-hati%16s|\n", "");
+	} else if (skor < 85) {
+		printf("Layak%20s|\n", "");
+	} else {
+		printf("Sangat Layak%13s|\n","");
+	}
+	
+	int alatTerpakai = alat[0] + alat[1] + alat[2];
+	switch (alatTerpakai) {
+		case TIDAKAKURAT :
+			printf ("|Kategori : Tidak Akurat%26s|\n", "");
+			printf ("|Akurasi: 60 - 80%%%32s|\n", "");
+			break;
+		case CUKUPAKURAT :
+			printf ("|Kategori : Cukup Akurat%26s|\n", "");
+			printf ("|Akurasi: 60 - 80%%%32s|\n", "");
+			break;
+		case AKURAT :
+			printf ("|Kategori : Akurat%32s|\n", "");
+			printf ("|Akurasi: 80 - 100%%%31s|\n", "");
+			break;
+		case SANGATAKURAT : 
+			printf ("|Kategori : Sangat Akurat%28s|\n", "");
+			printf ("|Akurasi: 80 - 100%%%31s|\n", "");
+			break;
+	}
+	for (i = 0; i < 51; i++) printf ("-");
+	puts ("\n");
+}
+
+int penilaianSurvei(dataAir data, int alat[]) {
+
+    float skor = 0, alatTerpakai = 0;
+    
+    // Skala 1 (baik) - 5 (buruk), skor optimal jika nilai 1
+    skor += ((5 - data.bau) / 4.0) * 20;
+    
+    if (alat[0] == 1) {
+        alatTerpakai++;
+        if (data.kekeruhan.decimal > 5) skor += (1 - (data.kekeruhan.decimal / 5.0)) * 15;
+        else skor += 15;
+        if (data.TCU > 50) skor += (1 - (data.TCU / 50.0)) * 10;
+        else skor += 10;
+    }
+    else {
+        skor += ((5 - data.kekeruhan.integer) / 4.0) * 25;
+    }
+    
+    if (alat[1] == 1) {
+        alatTerpakai++;
+        float range = 0;
+        if (data.pH < 6.5) range = fabs(data.pH - 6.5);
+        else if (data.pH > 8.5) range = fabs(data.pH - 8.5);
+        else if (data.pH >= 6.5 && data.pH <= 8.5) skor += 20;
+        if (range != 0) skor += (1 - (range / 3.0)) * 20;
+    }
+    else {
+        skor += ((5 - data.rasa) / 4.0) * 20;
+    }
+    
+    skor += ((5 - data.endapan) / 4.0) * 15;
+    
+    if (alat[2] == 1) {
+        alatTerpakai++;
+        if (data.eColi > 50) skor += (1 - (data.eColi / 50.0)) * 20;
+        else skor += 20;
+    }
+    else {
+        skor += ((5 - data.diare) / 4.0) * 20;
+    }
+    /* Jika skor < 50 = Tidak layak, 50 - 69 = Hati-hati
+    70 - 84 = Layak, 85 - 100 = Sangat Layak 
+    Jika alat terpakai = 0 maka pakai enum TIDAKAKURAT
+    jika alat terpakai = 1 maka pakai enum CUKUPAKURAT
+    jika alat terpakai = 2 maka pakai enum AKURAT
+    jika alat terpakai = 3 maka pakai enum SANGATAKURAT
+    Kemudian dibuat Akurasi berdasarkan enumnya, Alat terpakai => 2 maka
+    tampilkan Akurasi : 80 - 100%
+    sisanya Akurasi : 60 - 80%
+    */
+    return skor;
+
 }
 
 void kalkulatorAir() {
@@ -256,9 +343,9 @@ void kalkulatorAir() {
     total_air += menyiram_tanaman;
 
     penggunaanAir kategori;
-	if(total_air < 100){
+	if(total_air < 50){
 		kategori = KURANG;
-	} else if (total_air <= 250) {
+	} else if (total_air >= 50 && total_air <= 100) {
 		kategori = IDEAL;
 	} else {
 		kategori = BOROS;
@@ -284,7 +371,7 @@ void kalkulatorAir() {
         scanf("%s", pilihan);
 
         // Normalisasi ke huruf kecil
-        for (int i = 0; pilihan[i]; i++) {
+        for (i = 0; pilihan[i]; i++) {
             pilihan[i] = tolower(pilihan[i]);
         }
 
@@ -299,10 +386,6 @@ void kalkulatorAir() {
             printf("Input tidak dikenali. Silakan ketik IYA atau TIDAK.\n");
         }
     }
-	
-	
-   
-   	
 
 }
 
@@ -313,57 +396,6 @@ void skalaASCII(char keyword[]) {
 	printf ("\n|Tidak %s %20s Sangat %s", keyword, "", keyword);
 	for (i = 1; i < panjang; i++) printf (" ");
 	printf ("|\n");
-}
-
-int penilaianSurvei(dataAir data, int alat[]) {
-	float skor = 0, alatTerpakai = 0;
-	
-	skor += ( (5 - data.bau) / 5) * 20; //Skor tidak bertambah ketika dicoba di debugger
-	
-	if (alat[0] == 1) {
-		alatTerpakai++;
-		if (data.kekeruhan.decimal > 5) skor += (1 - (data.kekeruhan.decimal / 5) ) * 15;
-		else skor += 15;
-		if (data.TCU > 50) skor += (1 - (data.TCU / 50)) * 10;
-		else skor += 10;
-	}
-	else {
-		skor += ( (5 - data.kekeruhan.integer) / 5) * 25;
-	}
-	
-	if (alat[1] == 1) {
-		alatTerpakai++;
-		float range = 0;
-		if (data.pH < 6.5) range = fabs(data.pH - 6.5);
-		else if (data.pH > 8.5) range = fabs(data.pH - 8.5);
-		else if (data.pH >= 6.5 && data.pH <= 8.5) skor += 20;
-		if (range != 0) skor += (1 - (range / 3)) * 20;
-	}
-	else {
-		skor +=  ( (5 - data.rasa) / 5) * 20;
-	}
-	
-	skor += ( (5 - data.endapan) / 5) * 15;
-	
-	if (alat[2] == 1) {
-		alatTerpakai++;
-		if (data.eColi > 50) skor += (data.eColi / 50) * 20;
-		else skor += 20;
-	}
-	else {
-		skor += ( (5 - data.diare) / 5) * 20;
-	}
-	/* Jika skor < 50 = Tidak layak, 50 - 69 = Hati-hati
-	70 - 84 = Layak, 85 - 100 = Sangat Layak 
-	Jika alat terpakai = 0 maka pakai enum TIDAKAKURAT
-	jika alat terpakai = 1 maka pakai enum CUKUPAKURAT
-	jika alat terpakai = 2 maka pakai enum AKURAT
-	jika alat terpakai = 3 maka pakai enum SANGATAKURAT
-	Kemudian dibuat Akurasi berdasarkan enumnya, Alat terpakai > 2 maka
-	tampilkan Akurasi : 80 - 100%
-	sisanya Akurasi : 60 - 80%
-	*/
-	return skor;
 }
 
 void badgeBijakAir() {
