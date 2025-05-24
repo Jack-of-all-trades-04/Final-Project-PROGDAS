@@ -371,6 +371,7 @@ void kalkulatorAir() {
 			break;
 		case IDEAL:
 			printf ("IDEAL%19s|\n|Ideal diantara 50 sampai 100 liter%15s|\n", "", "");
+			badgeBijakAir();
 			break;
 		case BOROS:
 			printf ("BOROS%19s|\n|Penggunaan melebihi 100 liter%20s|\n", "", "");
@@ -425,16 +426,17 @@ void tampilkanPertanyaan(const char* pertanyaan) {
 }
 
 void badgeBijakAir() {
-	printf("                 /\\    \n");
-	printf("                /  \\    \n");
-	printf("               /    \\    \n");
-	printf("              /      \\    \n");
-	printf("             /        \\    \n");
-	printf("            /          \\    \n ");
-	printf("          /            \\    \n");
-	printf("          /              \\     \n");
-	printf("         ;                ;     \n");
-	printf("         \\                /      \n");
-	printf("          `-.__..__..__..`      \n");
+	printf("|Selamat, Anda mendapatkan Badge Bijak Air!!%6s|\n", "");
+	printf("|                       /\\ %23s|\n", "");
+	printf("|                      /  \\ %22s|\n", "");
+	printf("|                     /    \\    %18s|\n", "");
+	printf("|                    /      \\    %17s|\n", "");
+	printf("|                   /        \\    %16s|\n", "");
+	printf("|                  /          \\    %15s|\n", "");
+	printf("|                 /            \\    %14s|\n", "");
+	printf("|                /              \\     %12s|\n", "");
+	printf("|               ;                ;     %11s|\n", "");
+	printf("|               \\                /     %11s|\n", "");
+	printf("|                `-.__..__..__..`      %11s|\n", "");
 }
 
