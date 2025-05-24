@@ -393,6 +393,8 @@ void kalkulatorAir() {
 			break;
 	}
 	for (i = 0; i < 51; i++) printf ("-");
+	free(total_air);
+	free(penggunaan);
 	puts ("\n");
 }
 
