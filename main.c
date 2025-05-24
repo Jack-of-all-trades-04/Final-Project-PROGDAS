@@ -101,7 +101,7 @@ void surveiMandiri() {
 	
 	while(input != 'Y' && input != 'N') {
 		printf ("\n|Jawaban Anda : ");
-		scanf (" %s", &input);
+		scanf (" %c", &input);
 		input = toupper(input);
 		if (input != 'Y' && input != 'N') printf ("|Jawaban tidak valid, hanya menerima 'Y' dan 'N'  |");
 	}
@@ -143,7 +143,7 @@ void surveiMandiri() {
     input = 'a';
     while(input != 'Y' && input != 'N') {
 		printf ("\n|Jawaban Anda : ");
-		scanf (" %s", &input);
+		scanf (" %c", &input);
 		input = toupper(input);
 		if (input != 'Y' && input != 'N') printf ("|Jawaban tidak valid, hanya menerima 'Y' dan 'N'  |");
 	}
@@ -189,7 +189,7 @@ void surveiMandiri() {
     input = 'a';
     while(input != 'Y' && input != 'N') {
 		printf ("\n|Jawaban Anda : ");
-		scanf (" %s", &input);
+		scanf (" %c", &input);
 		input = toupper(input);
 		if (input != 'Y' && input != 'N') printf ("|Jawaban tidak valid, hanya menerima 'Y' dan 'N'  |");
 	}
@@ -250,7 +250,7 @@ void surveiMandiri() {
 			printf ("|Akurasi: 80 - 90%%%32s|\n", "");
 			break;
 		case SANGATAKURAT : 
-			printf ("|Kategori : Sangat Akurat%28s|\n", "");
+			printf ("|Kategori : Sangat Akurat%25s|\n", "");
 			printf ("|Akurasi: 90 - 100%%%31s|\n", "");
 			break;
 	}
