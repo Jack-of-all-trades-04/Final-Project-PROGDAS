@@ -218,11 +218,7 @@ void surveiMandiri() {
 		}
 	}
 	
-<<<<<<< HEAD
 	skor = penilaianSurvei(*data, alat);
-=======
-	skor = penilaianSurvei(data, alat);
->>>>>>> e2d13b0b052913ff55686649986fa4e96af897e5
 
 	for (i = 0; i < 51; i++) printf ("-");
     printf("\n|%18sHasil Penilaian%16s|\n", "", "");
