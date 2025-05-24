@@ -9,6 +9,8 @@ void surveiMandiri();
 void kalkulatorAir();
 void skalaASCII(char keyword[]);
 void badgeBijakAir();
+void cekPenggunaanAir(const char* kegiatan, double nilai, double minimal, double maksimal);
+void tampilkanPertanyaan(const char* pertanyaan);
 
 typedef enum {
 	KURANG, IDEAL, BOROS
@@ -73,8 +75,9 @@ void startup() {
 
 void surveiMandiri() {
     int i, skor, alat[3];
-	dataAir data;
+	dataAir* data = (dataAir*) malloc (sizeof(dataAir));
 	char input = 'a', temp[20];
+	
     for (i = 0; i < 51; i++) printf ("-");
     printf ("\n|%18sBijak Air 1.0%18s|\n", "", "");
     printf ("|%18sSurvei Mandiri%17s|\n", "", "");
@@ -85,12 +88,12 @@ void surveiMandiri() {
     
     printf ("\n|1. Seberapa bau air Anda?%24s|", "");
     skalaASCII("Bau");
-    data.bau = -1;
-    while (data.bau < 1 || data.bau > 5) {
+    data->bau = -1;
+    while (data->bau < 1 || data->bau > 5) {
     	printf ("|Jawaban Anda : ");
     	scanf ("%s", &temp);
-    	data.bau = atoi(temp);
-    	if (data.bau < 1 || data.bau > 5) {
+    	data->bau = atoi(temp);
+    	if (data->bau < 1 || data->bau > 5) {
     		printf ("|Jawaban tidak valid, coba lagi%19s|\n", "");
 		}
 	}
@@ -107,31 +110,31 @@ void surveiMandiri() {
 		case 'Y' :
 			alat[0] = 1;
 			printf ("|2.b Berapa NTU yang muncul?%22s|\n", "");
-    		data.kekeruhan.decimal = -1;
-    		while (data.kekeruhan.decimal <= 0) {
+    		data->kekeruhan.decimal = -1;
+    		while (data->kekeruhan.decimal <= 0) {
     			printf ("|Jawaban Anda : ");
     			scanf ("%s", &temp);
-    			data.kekeruhan.decimal = atof(temp);
-    			if (data.kekeruhan.decimal <= 0) printf ("|Jawaban tidak valid, coba lagi%19s|\n", "");
+    			data->kekeruhan.decimal = atof(temp);
+    			if (data->kekeruhan.decimal <= 0) printf ("|Jawaban tidak valid, coba lagi%19s|\n", "");
 			}
 			printf ("|2.c Berapa TCU yang muncul?%22s|\n", "");
-    		data.TCU = -1;
-    		while (data.TCU <= 0) {
+    		data->TCU = -1;
+    		while (data->TCU <= 0) {
     			printf ("|Jawaban Anda : ");
     			scanf ("%s", &temp);
-    			data.TCU = atof(temp);
-    			if (data.TCU <= 0) printf ("|Jawaban tidak valid, coba lagi%19s|\n", "");
+    			data->TCU = atof(temp);
+    			if (data->TCU <= 0) printf ("|Jawaban tidak valid, coba lagi%19s|\n", "");
 			}
 			break;
 		case 'N' :
 			alat[0] = 0;
 			printf ("|2.b Seberapa kotor air Anda?%21s|", "");
     		skalaASCII("Kotor");
-    		while (data.kekeruhan.integer < 1 || data.kekeruhan.integer > 5) {
+    		while (data->kekeruhan.integer < 1 || data->kekeruhan.integer > 5) {
     			printf ("|Jawaban Anda : ");
     			scanf ("%s", &temp);
-    			data.kekeruhan.integer = atoi(temp);
-    			if (data.kekeruhan.integer < 1 || data.kekeruhan.integer > 5) printf ("|Jawaban tidak valid, coba lagi%19s|\n", "");
+    			data->kekeruhan.integer = atoi(temp);
+    			if (data->kekeruhan.integer < 1 || data->kekeruhan.integer > 5) printf ("|Jawaban tidak valid, coba lagi%19s|\n", "");
 			}
 			break;
 	}
@@ -144,27 +147,27 @@ void surveiMandiri() {
 		input = toupper(input);
 		if (input != 'Y' && input != 'N') printf ("|Jawaban tidak valid, hanya menerima 'Y' dan 'N'  |");
 	}
-	data.pH = -1;
+	data->pH = -1;
 	if (input == 'Y') {
 		alat[1] = 1;
 		printf ("|3.b Masukkan pH yang terukur%21s|\n", "");
-		while (data.pH <= 0 || data.pH > 14) {
+		while (data->pH <= 0 || data->pH > 14) {
     		printf ("|Jawaban Anda : ");
     		scanf("%s", &temp);
-    		data.pH = atoi(temp);
-    		if (data.pH <= 0 || data.pH > 14) printf ("|Jawaban tidak valid, coba lagi%19s|\n", "");
+    		data->pH = atoi(temp);
+    		if (data->pH <= 0 || data->pH > 14) printf ("|Jawaban tidak valid, coba lagi%19s|\n", "");
 		}
 	}
 	else {
 		alat[1] = 0;
 		printf ("|3.b Seberapa berasa air Anda?%20s|", "");
 	    skalaASCII("Berasa");
-	    data.rasa = 0;
-	    while (data.rasa < 1 || data.rasa > 5) {
+	    data->rasa = 0;
+	    while (data->rasa < 1 || data->rasa > 5) {
 	    	printf ("|Jawaban Anda : ");
 	    	scanf("%s", &temp);
-	    	data.rasa = atoi(temp);
-	    	if (data.rasa < 1 || data.rasa > 5) {
+	    	data->rasa = atoi(temp);
+	    	if (data->rasa < 1 || data->rasa > 5) {
 	    		printf ("|Jawaban tidak valid, coba lagi%19s|\n", "");
 			}
 		}
@@ -172,12 +175,12 @@ void surveiMandiri() {
     
     printf ("|%49s|\n|4. Seberapa banyak endapan air Anda?%13s|", "", "");
     skalaASCII("Banyak");
-    data.endapan = 0;
-    while (data.endapan < 1 || data.endapan > 5) {
+    data->endapan = 0;
+    while (data->endapan < 1 || data->endapan > 5) {
     	printf ("|Jawaban Anda : ");
     	scanf("%s", &temp);
-    	data.endapan = atoi(temp);
-    	if (data.endapan < 1 || data.endapan > 5) {
+    	data->endapan = atoi(temp);
+    	if (data->endapan < 1 || data->endapan > 5) {
     		printf ("|Jawaban tidak valid, coba lagi%19s|\n", "");
 		}
 	}
@@ -194,28 +197,28 @@ void surveiMandiri() {
 	if (input == 'Y') {
 		alat[2] = 1;
 		printf ("|5.b Masukkan angka CFU/100mL%21s|\n", "");
-		data.eColi = -1;
-    	while (data.eColi <= 0) {
+		data->eColi = -1;
+    	while (data->eColi <= 0) {
 	    	printf ("|Jawaban Anda : ");
 	    	scanf ("%s", &temp);
-	    	data.eColi = atof(temp);
-	    	if (data.eColi <= 0 ) printf ("|Jawaban tidak valid, coba lagi%19s|\n", "");
+	    	data->eColi = atof(temp);
+	    	if (data->eColi <= 0 ) printf ("|Jawaban tidak valid, coba lagi%19s|\n", "");
 		}
 	}
 	else {
 		alat[2] = 0;
 		printf ("|5.b Apakah anda sering diare?%20s|", "");
 		skalaASCII("Sering");
-		data.diare = -1;
-    	while (data.diare < 1 || data.diare > 5) {
+		data->diare = -1;
+    	while (data->diare < 1 || data->diare > 5) {
 	    	printf ("|Jawaban Anda : ");
 	    	scanf("%s", temp);
-	    	data.diare = atoi(temp);
-	    	if (data.diare < 1 || data.diare > 5) printf ("|Jawaban tidak valid, coba lagi%19s|\n", "");
+	    	data->diare = atoi(temp);
+	    	if (data->diare < 1 || data->diare > 5) printf ("|Jawaban tidak valid, coba lagi%19s|\n", "");
 		}
 	}
 	
-	skor = penilaianSurvei(data, alat);
+	skor = penilaianSurvei(*data, alat);
 
 	for (i = 0; i < 51; i++) printf ("-");
     printf("\n|%18sHasil Penilaian%16s|\n", "", "");
@@ -223,7 +226,7 @@ void surveiMandiri() {
     printf("|Skor Kelayakan Air: %-29s|\n|", temp);
 	printf ("Tingkat Kelayakan Air : ");
 	if (skor < 50) {
-		printf("Tidak Layak%26s|\n","");
+		printf("Tidak Layak%14s|\n","");
 	} else if (skor < 70) {
 		printf("Hati-hati%16s|\n", "");
 	} else if (skor < 85) {
@@ -236,23 +239,24 @@ void surveiMandiri() {
 	switch (alatTerpakai) {
 		case TIDAKAKURAT :
 			printf ("|Kategori : Tidak Akurat%26s|\n", "");
-			printf ("|Akurasi: 60 - 80%%%32s|\n", "");
+			printf ("|Akurasi: 60 - 70%%%32s|\n", "");
 			break;
 		case CUKUPAKURAT :
 			printf ("|Kategori : Cukup Akurat%26s|\n", "");
-			printf ("|Akurasi: 60 - 80%%%32s|\n", "");
+			printf ("|Akurasi: 70 - 80%%%32s|\n", "");
 			break;
 		case AKURAT :
 			printf ("|Kategori : Akurat%32s|\n", "");
-			printf ("|Akurasi: 80 - 100%%%31s|\n", "");
+			printf ("|Akurasi: 80 - 90%%%32s|\n", "");
 			break;
 		case SANGATAKURAT : 
 			printf ("|Kategori : Sangat Akurat%28s|\n", "");
-			printf ("|Akurasi: 80 - 100%%%31s|\n", "");
+			printf ("|Akurasi: 90 - 100%%%31s|\n", "");
 			break;
 	}
 	for (i = 0; i < 51; i++) printf ("-");
 	puts ("\n");
+	free(data);
 }
 
 int penilaianSurvei(dataAir data, int alat[]) {
@@ -295,98 +299,114 @@ int penilaianSurvei(dataAir data, int alat[]) {
     else {
         skor += ((5 - data.diare) / 4.0) * 20;
     }
-    /* Jika skor < 50 = Tidak layak, 50 - 69 = Hati-hati
-    70 - 84 = Layak, 85 - 100 = Sangat Layak 
-    Jika alat terpakai = 0 maka pakai enum TIDAKAKURAT
-    jika alat terpakai = 1 maka pakai enum CUKUPAKURAT
-    jika alat terpakai = 2 maka pakai enum AKURAT
-    jika alat terpakai = 3 maka pakai enum SANGATAKURAT
-    Kemudian dibuat Akurasi berdasarkan enumnya, Alat terpakai => 2 maka
-    tampilkan Akurasi : 80 - 100%
-    sisanya Akurasi : 60 - 80%
-    */
     return skor;
 
 }
 
 void kalkulatorAir() {
 	int i, input = 0;
+	char temp[20];
+	
 	for (i = 0; i < 51; i++) printf ("-");
 	printf ("\n|%18sBijak Air 1.0%18s|\n", "", "");
 	printf ("|%18sKalkulator Air%17s|\n", "", "");
 	for (i = 0; i < 51; i++) printf ("-");
-    int total_air = 0;
-    int minum, mandi, mencuci_piring, mencuci_baju, ibadah, menyiram_tanaman;  
-    printf("\nJawablah pertanyaan-pertanyaan berikut\n");
-    printf("1. Berapa nilai konsumsi air untuk minum hari ini (dalam liter)?: ");
-    scanf("%d", &minum);
-    total_air += minum;
 	
-    printf("2. Berapa nilai konsumsi air untuk mandi hari ini (dalam liter)?: ");
-    scanf("%d", &mandi);
-    total_air += mandi;
+    double* total_air = (double*) malloc (sizeof(double));
+    double* penggunaan = (double*) malloc (6 * sizeof(double));// Dynamic Array dengan dengan ukuran 6
+    const char* listPertanyaan[] = {
+	"1. Berapa banyak air yang digunakan untuk minum?  (dalam liter)",
+	"2. Berapa banyak air yang digunakan untuk mandi?  (dalam liter)",
+	"3. Berapa banyak air yang digunakan untuk mencuci baju? (dalam liter)",
+	"4. Berapa banyak air yang digunakan untuk mencuci piring? (dalam liter)",
+	"5. Berapa banyak air yang digunakan untuk wudhu?  (dalam liter)",
+	"6. Berapa banyak air yang digunakan untuk siram   tanaman? (dalam liter)",
+	};
+	const char *kegiatan[] = {"Minum", "Mandi", "Mencuci Baju", "Mencuci Piring", "Wudhu", "Siram Tanaman"};
+	double penggunaanMinimal[] = {2,30,10,50,1.5*5.0,5};
+	double penggunaanMaksimal[] = {3,60,20,100,3*5.0,20};
+    printf("\n|Jawablah pertanyaan-pertanyaan berikut%11s|\n|%49s|", "", "");
+    *total_air = 0;
+	for (i = 0; i < 6; i++) {
+    	tampilkanPertanyaan(listPertanyaan[i]);
+    	do {
+    		printf ("\n|Jawaban Anda : ");
+    		scanf (" %s", &temp);
+    		penggunaan[i] = atof(temp);
+    		if (penggunaan[i] <= 0) printf ("|Jawaban tidak valid, coba lagi.%18s|", "");
+		} 
+		while (penggunaan[i] <= 0);
+		printf ("|%49s|", "");
+		*total_air += penggunaan[i];
+	}
 	
-    printf("3. Berapa nilai konsumsi air untuk mencuci piring hari ini (dalam liter)?: ");
-    scanf("%d", &mencuci_piring);
-    total_air += mencuci_piring;
+	puts ("");
+	for (i = 0; i < 51; i++) printf ("-");
+    printf ("\n|%16sHasil Kalkulator%17s|", "", "");
+    sprintf (temp, "%.2lf", *total_air);
+	printf ("\n|Penggunaan air sebanyak: %-18s liter|\n", temp);
+	printf ("|Detail : %40s|\n", "");
 	
-    printf("4. Berapa nilai konsumsi air untuk mencuci baju hari ini (dalam liter)?: ");
-    scanf("%d", &mencuci_baju);
-    total_air += mencuci_baju;
-    
-    printf("5. Berapa nilai konsumsi air untuk ibadah (misalnya wudhu) hari ini (dalam liter)?: ");
-    scanf("%d", &ibadah);
-    total_air += ibadah;
-    
-    printf("6. Berapa nilai konsumsi air untuk menyiram tanaman hari ini (dalam liter)?: ");
-    scanf("%d", &menyiram_tanaman);
-    total_air += menyiram_tanaman;
-
-    penggunaanAir kategori;
-	if(total_air < 50){
+	for (i = 0; i < 6; i++) {
+		int j;
+		cekPenggunaanAir(kegiatan[i], penggunaan[i], penggunaanMinimal[i], penggunaanMaksimal[i]);
+		printf ("|");
+		for (j = 0; j < 49; j++) printf ("-");
+		printf ("|\n");
+	}
+	
+	penggunaanAir kategori;
+	if(*total_air < 50){
 		kategori = KURANG;
-	} else if (total_air >= 50 && total_air <= 100) {
+	} else if (*total_air >= 50 && *total_air <= 100) {
 		kategori = IDEAL;
 	} else {
 		kategori = BOROS;
 	}
 
-	printf("Penggunaan air selama satu hari sebanyak: %d liter\n",total_air);
-	printf("kategori penggunaan air: ");
+	printf ("|Kategori penggunaan air: ");
 	switch (kategori) {
 		case KURANG:
-			printf("KURANG\n");
+			printf ("KURANG%18s|\n|Ideal adalah 50 sampai 100 liter%17s|\n", "", "");
 			break;
 		case IDEAL:
-			printf("IDEAL\n");
+			printf ("IDEAL%19s|\n|Ideal diantara 50 sampai 100 liter%15s|\n", "", "");
+			badgeBijakAir();
 			break;
 		case BOROS:
-			printf("BOROS\n");
+			printf ("BOROS%19s|\n|Penggunaan melebihi 100 liter%20s|\n", "", "");
+			printf ("|Apakah Anda butuh saran untuk bisa mengurangi    |\n|penggunaan air?%34s|\n", "");
+			do {
+				printf ("|Ketik IYA atau TIDAK: ");
+				scanf ("%s", &temp);
+				for (i = 0; i < strlen(temp); i++) temp[i] = tolower(temp[i]);
+				if (strcmp(temp, "iya") == 0) {
+		            printf("|Berikut ini saran untuk Anda bisa menghemat air  |\n","");// Sarannya kalau mau dynamic?
+		            printf("|1. Matikan keran air bila tidak digunakan%8s|\n","");
+		            printf("|2. Mengecek pipa secara berkala%18s|\n","");
+		            printf("|3. Menampung air hujan%27s|\n","");
+		    	}
+				else if (strcmp(temp, "tidak") == 0) printf ("|Baik, semoga penggunaan air Anda bisa lebih hemat|\n|ke depannya%38s|\n","");
+				else printf ("|Input tidak valid, silakan ketik IYA atau TIDAK%2s|\n","");
+			}
+			while (strcmp(temp, "iya") != 0 && strcmp(temp, "tidak") != 0);
 			break;
 	}
-	if (kategori == BOROS) {
-        char pilihan[50];
-        printf("\nApakah anda butuh saran untuk bisa mengurangi penggunaan air?\n");
-        printf("Ketik IYA atau TIDAK: ");
-        scanf("%s", pilihan);
+	for (i = 0; i < 51; i++) printf ("-");
+	free(total_air);
+	free(penggunaan);
+	puts ("\n");
+}
 
-        // Normalisasi ke huruf kecil
-        for (i = 0; pilihan[i]; i++) {
-            pilihan[i] = tolower(pilihan[i]);
-        }
-
-        if (strcmp(pilihan, "iya") == 0) {
-            printf("\nBerikut ini saran untuk anda bisa menghemat air:\n");
-            printf("1. Matikan keran air bila tidak digunakan\n");
-            printf("2. Mengecek pipa secara berkala\n");
-            printf("3. Menampung air hujan\n");
-        } else if (strcmp(pilihan, "tidak") == 0) {
-            printf("Baik, semoga penggunaan air anda bisa lebih hemat ke depannya.\n");
-        } else {
-            printf("Input tidak dikenali. Silakan ketik IYA atau TIDAK.\n");
-        }
-    }
-
+void cekPenggunaanAir(const char* kegiatan, double nilai, double minimal, double maksimal) {
+	char temp1[20], temp2[20];
+	sprintf (temp1, "%.2lf", nilai);
+	printf ("|%-20s : %-19s  liter|\n", kegiatan, temp1);
+	sprintf (temp1, "%.2lf", minimal);
+	sprintf (temp2, "%.2lf", maksimal);
+	if (nilai < minimal) printf ("|Kurang dari ideal (%-7s sampai %-7s  liter)|\n", temp1, temp2);
+	else if (nilai > maksimal) printf ("|Boros, angka ideal(%-7s sampai %-7s  liter)|\n", temp1, temp2);
+	else printf ("|Sudah Ideal (%-7s sampai %-7s        liter)|\n", temp1, temp2);
 }
 
 void skalaASCII(char keyword[]) {
@@ -398,16 +418,27 @@ void skalaASCII(char keyword[]) {
 	printf ("|\n");
 }
 
-void badgeBijakAir() {
-	printf("                 /\\    \n");
-	printf("                /  \\    \n");
-	printf("               /    \\    \n");
-	printf("              /      \\    \n");
-	printf("             /        \\    \n");
-	printf("            /          \\    \n ");
-	printf("          /            \\    \n");
-	printf("          /              \\     \n");
-	printf("         ;                ;     \n");
-	printf("         \\                /      \n");
-	printf("          `-.__..__..__..`      \n");
+void tampilkanPertanyaan(const char* pertanyaan) {
+	int panjang = strlen(pertanyaan), i = 0;
+	while (i < panjang) {
+		if (i == 49) printf ("|  %-47s|", pertanyaan + i);
+		else printf ("\n|%.49s|\n", pertanyaan + i);
+		i += 49;
+	}
 }
+
+void badgeBijakAir() {
+	printf("|Selamat, Anda mendapatkan Badge Bijak Air!!%6s|\n", "");
+	printf("|                       /\\ %23s|\n", "");
+	printf("|                      /  \\ %22s|\n", "");
+	printf("|                     /    \\    %18s|\n", "");
+	printf("|                    /      \\    %17s|\n", "");
+	printf("|                   /        \\    %16s|\n", "");
+	printf("|                  /          \\    %15s|\n", "");
+	printf("|                 /            \\    %14s|\n", "");
+	printf("|                /              \\     %12s|\n", "");
+	printf("|               ;                ;     %11s|\n", "");
+	printf("|               \\                /     %11s|\n", "");
+	printf("|                `-.__..__..__..`      %11s|\n", "");
+}
+
