@@ -9,12 +9,10 @@ void surveiMandiri();
 void kalkulatorAir();
 void skalaASCII(char keyword[]);
 void badgeBijakAir();
-void cekPenggunaanAir(const char* kegiatan, double nilai, double minimal, double maksimal);
 void tampilkanPertanyaan(const char* pertanyaan);
+void cekPenggunaanAir(const char* kegiatan, double nilai, double min, double maks);
 
-typedef enum {
-	KURANG, IDEAL, BOROS
-}penggunaanAir;
+typedef enum { KURANG, IDEAL, BOROS } penggunaanAir;
 
 typedef struct {
 	float pH, eColi, TCU;
@@ -304,111 +302,135 @@ int penilaianSurvei(dataAir data, int alat[]) {
 }
 
 //fungsi untuk menghitung penggunaan air
+//penerapan modul 5 praktikum yaitu modul function
 void kalkulatorAir() {
-	int i, input = 0;
-	char temp[20];
-	//awal dari program menghitung air
-	for (i = 0; i < 51; i++) printf ("-");
-	printf ("\n|%18sBijak Air 1.0%18s|\n", "", "");
-	printf ("|%18sKalkulator Air%17s|\n", "", "");
-	for (i = 0; i < 51; i++) printf ("-");
+    int i, input = 0;
+    char temp[50];
 
-   //penerapan pointer untuk menghitung total air dan penggunaan air
-    double* total_air = (double*) malloc (sizeof(double));
-    double* penggunaan = (double*) malloc (6 * sizeof(double));// Dynamic Array dengan dengan ukuran 6
+    // Header tampilan
+    for (i = 0; i < 51; i++) printf("-");
+    printf("\n|%18sBijak Air 1.0%18s|\n", "", "");
+    printf("|%18sKalkulator Air%17s|\n", "", "");
+    for (i = 0; i < 51; i++) printf("-");
+
+    // Pointer untuk menyimpan data
+    int jumlahAnggota;
+    printf("\nMasukkan jumlah anggota keluarga anda: ");
+    scanf("%d", &jumlahAnggota);
+
+    double* total_air = (double*) malloc(sizeof(double));
+    *total_air = 0.0;
+
+    double* penggunaan = (double*) malloc(6 * sizeof(double)); // penggunaan sementara per anggota
+
     const char* listPertanyaan[] = {
-	//pertanyaan untuk menghitung total penggunaan air dalam satu hari
-	"1. Berapa banyak air yang digunakan untuk minum?  (dalam liter)",
-	"2. Berapa banyak air yang digunakan untuk mandi?  (dalam liter)",
-	"3. Berapa banyak air yang digunakan untuk mencuci baju? (dalam liter)",
-	"4. Berapa banyak air yang digunakan untuk mencuci piring? (dalam liter)",
-	"5. Berapa banyak air yang digunakan untuk wudhu?  (dalam liter)",
-	"6. Berapa banyak air yang digunakan untuk siram   tanaman? (dalam liter)",
-	};
-	//Rumus untuk menghitung penggunaan maupun penggunaan maksimal air dalam satu hari
-	const char *kegiatan[] = {"Minum", "Mandi", "Mencuci Baju", "Mencuci Piring", "Wudhu", "Siram Tanaman"};
-	double penggunaanMinimal[] = {2,30,10,50,1.5*5.0,5};
-	double penggunaanMaksimal[] = {3,60,20,100,3*5.0,20};
-	
-    printf("\n|Jawablah pertanyaan-pertanyaan berikut%11s|\n|%49s|", "", "");
-    *total_air = 0;
-	for (i = 0; i < 6; i++) {
-    	tampilkanPertanyaan(listPertanyaan[i]);
-    	do {
-    		printf ("\n|Jawaban Anda : ");
-    		scanf (" %s", &temp);
-    		penggunaan[i] = atof(temp);
-    		if (penggunaan[i] <= 0) printf ("|Jawaban tidak valid, coba lagi.%18s|", "");
-		} 
-		while (penggunaan[i] <= 0);
-		printf ("|%49s|", "");
-		*total_air += penggunaan[i];
-	}
-	
-	puts ("");
-	for (i = 0; i < 51; i++) printf ("-");
-    Menampilkan hasil dari penggunaan air 
-    printf ("\n|%16sHasil Kalkulator%17s|", "", "");
-    sprintf (temp, "%.2lf", *total_air);
-	printf ("\n|Penggunaan air sebanyak: %-18s liter|\n", temp);
-	printf ("|Detail : %40s|\n", "");
-	
-	for (i = 0; i < 6; i++) {
-		int j;
-		cekPenggunaanAir(kegiatan[i], penggunaan[i], penggunaanMinimal[i], penggunaanMaksimal[i]);
-		printf ("|");
-		for (j = 0; j < 49; j++) printf ("-");
-		printf ("|\n");
-	}
-	//mengkategorikan penggunaan air termasuk ke dalam tipe kategori air
-	//ada penggunaan air yang kurang, ideal, dan boros.
-	penggunaanAir kategori;
-	if(*total_air < 50){
-		kategori = KURANG;
-	} else if (*total_air >= 50 && *total_air <= 100) {
-		kategori = IDEAL;
-	} else {
-		kategori = BOROS;
-	}
-	
-	//Kateogri air yang bisa dikatakan kurang, ideal, dan boros.
-	//bila kurang adalah kurang 50-100 liter
-	//bila ideal adalah 50-100 liter
-	//bila boros adalah 100 liter
-	printf ("|Kategori penggunaan air: ");
-	switch (kategori) {
-		case KURANG:
-			printf ("KURANG%18s|\n|Ideal adalah 50 sampai 100 liter%17s|\n", "", "");
-			break;
-		case IDEAL:
-			printf ("IDEAL%19s|\n|Ideal diantara 50 sampai 100 liter%15s|\n", "", "");
-			badgeBijakAir();
-			break;
-		case BOROS:
-			printf ("BOROS%19s|\n|Penggunaan melebihi 100 liter%20s|\n", "", "");
-			printf ("|Apakah Anda butuh saran untuk bisa mengurangi    |\n|penggunaan air?%34s|\n", "");
-			do {
-				printf ("|Ketik IYA atau TIDAK: ");
-				scanf ("%s", &temp);
-				for (i = 0; i < strlen(temp); i++) temp[i] = tolower(temp[i]);
-				if (strcmp(temp, "iya") == 0) {
-			    //Ada 3 saran yang bisa dilakukan untuk bisa menghemat air
-		            printf("|Berikut ini saran untuk Anda bisa menghemat air  |\n","");// Sarannya kalau mau dynamic?
-		            printf("|1. Matikan keran air bila tidak digunakan%8s|\n","");
-		            printf("|2. Mengecek pipa secara berkala%18s|\n","");
-		            printf("|3. Menampung air hujan%27s|\n","");
-		    	}
-				//jika user tidak ingin mendapatkan saran terkait permasalahan dari penggunaan air
-				else if (strcmp(temp, "tidak") == 0) printf ("|Baik, semoga penggunaan air Anda bisa lebih hemat|\n|ke depannya%38s|\n","");
-				else printf ("|Input tidak valid, silakan ketik IYA atau TIDAK%2s|\n","");
-			}
-			while (strcmp(temp, "iya") != 0 && strcmp(temp, "tidak") != 0);
-			break;
-	}
-	for (i = 0; i < 51; i++) printf ("-");
-	free(total_air);
-	free(penggunaan);
-	puts ("\n");
+        "1. Berapa banyak air yang digunakan untuk minum?  (dalam liter): ",
+        "2. Berapa banyak air yang digunakan untuk mandi?  (dalam liter): ",
+        "3. Berapa banyak air yang digunakan untuk mencuci baju? (dalam liter): ",
+        "4. Berapa banyak air yang digunakan untuk mencuci piring? (dalam liter): ",
+        "5. Berapa banyak air yang digunakan untuk wudhu?  (dalam liter): ",
+        "6. Berapa banyak air yang digunakan untuk siram tanaman? (dalam liter): "
+    };
+
+    for (int i = 0; i < jumlahAnggota; i++) {
+        printf("\n-- Anggota keluarga ke-%d --\n", i + 1);
+        double totalAnggota = 0.0;
+
+        for (int j = 0; j < 6; j++) {
+            printf("%s", listPertanyaan[j]);
+            scanf("%lf", &penggunaan[j]);
+            totalAnggota += penggunaan[j];
+        }
+
+        printf("Total penggunaan air oleh anggota ke-%d: %.2f liter\n", i + 1, totalAnggota);
+        *total_air += totalAnggota;
+    }
+
+    printf("\nTOTAL penggunaan air seluruh keluarga: %.2f liter\n", *total_air);
+
+    // Pertanyaan ulang (verifikasi / edukasi)
+    const char* kegiatan[] = {"Minum", "Mandi", "Mencuci Baju", "Mencuci Piring", "Wudhu", "Siram Tanaman"};
+    double penggunaanMinimal[] = {2, 30, 10, 50, 1.5 * 5.0, 5};
+    double penggunaanMaksimal[] = {3, 60, 20, 100, 3 * 5.0, 20};
+
+    printf("\n|Jawablah pertanyaan-pertanyaan berikut%11s|\n|%49s|\n", "", "");
+    *total_air = 0.0;
+
+    for (i = 0; i < 6; i++) {
+        printf("\n%s", listPertanyaan[i]);
+        do {
+            printf("|Jawaban Anda : ");
+            scanf("%s", temp);
+            penggunaan[i] = atof(temp);
+            if (penggunaan[i] <= 0)
+                printf("|Jawaban tidak valid, coba lagi.%18s|\n", "");
+        } while (penggunaan[i] <= 0);
+
+        printf("|%49s|\n", "");
+        *total_air += penggunaan[i];
+    }
+
+    puts("");
+    for (i = 0; i < 51; i++) printf("-");
+    printf("\n|%16sHasil Kalkulator%17s|\n", "", "");
+
+    sprintf(temp, "%.2lf", *total_air);
+    printf("|Penggunaan air sebanyak: %-18s liter|\n", temp);
+    printf("|Detail : %40s|\n", "");
+
+    for (i = 0; i < 6; i++) {
+        int j;
+        cekPenggunaanAir(kegiatan[i], penggunaan[i], penggunaanMinimal[i], penggunaanMaksimal[i]);
+        printf("|");
+        for (j = 0; j < 49; j++) printf("-");
+        printf("|\n");
+    }
+
+    // Penentuan kategori penggunaan
+    penggunaanAir kategori;
+    if (*total_air < 50) {
+        kategori = KURANG;
+    } else if (*total_air <= 100) {
+        kategori = IDEAL;
+    } else {
+        kategori = BOROS;
+    }
+
+    printf("|Kategori penggunaan air: ");
+    switch (kategori) {
+        case KURANG:
+            printf("KURANG%18s|\n|Ideal adalah 50 sampai 100 liter%17s|\n", "", "");
+            break;
+        case IDEAL:
+            printf("IDEAL%19s|\n|Ideal diantara 50 sampai 100 liter%15s|\n", "", "");
+            badgeBijakAir();
+            break;
+        case BOROS:
+            printf("BOROS%19s|\n|Penggunaan melebihi 100 liter%20s|\n", "", "");
+            printf("|Apakah Anda butuh saran untuk bisa mengurangi    |\n|penggunaan air?%34s|\n", "");
+            do {
+                printf("|Ketik IYA atau TIDAK: ");
+                scanf("%s", temp);
+                for (i = 0; i < strlen(temp); i++) temp[i] = tolower(temp[i]);
+
+                if (strcmp(temp, "iya") == 0) {
+                    printf("|Berikut ini saran untuk Anda bisa menghemat air  |\n");
+                    printf("|1. Matikan keran air bila tidak digunakan%8s|\n", "");
+                    printf("|2. Mengecek pipa secara berkala%18s|\n", "");
+                    printf("|3. Menampung air hujan%27s|\n", "");
+                } else if (strcmp(temp, "tidak") == 0) {
+                    printf("|Baik, semoga penggunaan air Anda bisa lebih hemat|\n|ke depannya%38s|\n", "");
+                } else {
+                    printf("|Input tidak valid, silakan ketik IYA atau TIDAK%2s|\n", "");
+                }
+            } while (strcmp(temp, "iya") != 0 && strcmp(temp, "tidak") != 0);
+            break;
+    }
+
+    for (i = 0; i < 51; i++) printf("-");
+    free(total_air);
+    free(penggunaan);
+    puts("\n");
 }
 
 //mengatur spacing untuk bisa rapi dan sejajar dengan survey
@@ -441,8 +463,8 @@ void tampilkanPertanyaan(const char* pertanyaan) {
 	}
 } 
 
-//hadiah kecil untuk user yang bisa mengkonsumsi air secara ideal dalam satu hari
-
+//Penghargaanuntuk user yang bisa mengkonsumsi air secara ideal dalam satu hari
+//implementasi penggunaan ASCII ART dari modul 4 dengan topik do,while,for,switch
 void badgeBijakAir() {
 	printf("|Selamat, Anda mendapatkan Badge Bijak Air!!%6s|\n", "");
 	printf("|                       /\\ %23s|\n", "");
