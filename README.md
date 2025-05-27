@@ -54,10 +54,6 @@ single space, no space before or after paragraphs, etc.
 |                    | Endapan setelah didiamkan         | Skala 0 (tidak ada) – 5 (banyak)                       | —                                                        |
 | **Mikrobiologi**     | Total coliform                    | 0–50 CFU/100 mL                                        | Permenkes RI                                          |
 |                    | Escherichia coli (E. coli)        | 0 CFU/100 mL                                           | WHO & Permenkes RI                                       |
-| **Kimiawi (berisiko)**| Arsenik (As)                     | ≤ 10 µg/L (WHO), ≤ 50 µg/L (RI)                        | WHO & Permenkes RI                                    |
-|                    | Fluorida (F⁻)                     | ≤ 1.5 mg/L                                             | WHO & Permenkes RI                                       |
-|                    | Nitrat (NO₃⁻)                     | ≤ 50 mg/L (WHO), ≤ 10 mg/L (RI)                        | WHO & Permenkes RI                                       |
-|                    | Logam Berat Lain (Pb, Cd, Hg, Mn, ...) | Sesuai lampiran Permenkes RI                         | Permenkes RI                                         |
 
 ### 2. Variabel Kalkulator Penggunaan Air Domestik
 | Aktivitas               | Variabel & Unit        | Faktor Konversi ke Liter         | Batas & Kategori WHO          |
@@ -84,8 +80,155 @@ Bandingkan dengan pedoman WHO 50–100 L/orang/hari:
 - Alam  : Menyempurnakan Fungsi Kalkulator dan Debugging Code
 
 ## Workflow Program
-![Flowchart Program](https://github.com/user-attachments/assets/35a26297-1d09-40ec-9795-56559d85fd75)
-
+```mermaid
+---
+config:
+  layout: elk
+  theme: neo
+  look: neo
+---
+flowchart TD
+ subgraph subGraph0["Main Menu"]
+        B1[/"Tampilkan Menu"/]
+        A["Start"]
+        B2[/"Input Pilihan User 1-3"/]
+        B3{"Input Valid?"}
+        C1{"Pilihan == 1?"}
+        D1[/"Survei Mandiri"/]
+        C2{"Pilihan == 2?"}
+        X1[/"Kalkulator Air"/]
+        Z{"Pilihan == 3?"}
+        X[/"Program Selesai"/]
+  end
+ subgraph subGraph1["Survei Mandiri"]
+        D2[/"Input BAU 1-5"/]
+        D2a{"Valid?"}
+        D3[/"Punya alat NTU/TCU? Y/N"/]
+        D3a{"Punya?"}
+        D7[/"Input KOTOR 1-5"/]
+        D4[/"Input NTU > 0"/]
+        D4a{"Valid?"}
+        D5[/"Input TCU > 0"/]
+        D5a{"Valid?"}
+        D7a{"Valid?"}
+        D8[/"Punya alat pH? Y/N"/]
+        D8a{"Punya?"}
+        D11[/"Input RASA 1-5"/]
+        D9[/"Input pH 0-14"/]
+        D9a{"Valid?"}
+        D12[/"Input ENDAPAN 1-5"/]
+        D11a{"Valid?"}
+        D12a{"Valid?"}
+        D13[/"Punya alat eColi? Y/N"/]
+        D13a{"Punya?"}
+        D16[/"Input DIARE 1-5"/]
+        D14[/"Input eColi > 0"/]
+        D14a{"Valid?"}
+        E1[/"Hitung Skor Total"/]
+        D16a{"Valid?"}
+        E2{"Skor &lt; 50"}
+        E3[/"Status: Tidak Layak"/]
+        E4{"Skor &lt; 70"}
+        E5[/"Status: Hati-hati"/]
+        E6{"Skor &lt; 85"}
+        E7[/"Status: Layak"/]
+        E8[/"Status: Sangat Layak"/]
+        E9[/"Hitung Akurasi Alat"/]
+  end
+ subgraph subGraph2["Kalkulator Air"]
+        X2[/"Input jumlah anggota > 0"/]
+        X2a{"Valid?"}
+        X3[/"Isi 6 pertanyaan per anggota"/]
+        X4[/"Hitung total liter keluarga"/]
+        X5[/"Hitung rata-rata penggunaan"/]
+        X6{"Rata-rata &lt; 50"}
+        X7[/"Kategori: KURANG"/]
+        X8{"Rata-rata &lt;= 100"}
+        X9[/"Kategori: IDEAL + dapat badge"/]
+        X10[/"Kategori: BOROS"/]
+        X11[/"Ingin saran? Y/N"/]
+        X11a{"Valid?"}
+        X12[/"Tampilkan 3 saran"/]
+  end
+    A --> B1
+    B1 --> B2
+    B2 --> B3
+    B3 -- Tidak --> B1
+    B3 -- Ya --> C1
+    C1 -- Ya --> D1
+    C1 -- Tidak --> C2
+    C2 -- Ya --> X1
+    C2 -- Tidak --> Z
+    Z -- Ya --> X
+    Z -- Tidak --> B1
+    D1 --> D2
+    D2 --> D2a
+    D2a -- Tidak --> D2
+    D2a --> D3
+    D3 --> D3a
+    D3a -- Tidak --> D7
+    D3a -- Ya --> D4
+    D4 --> D4a
+    D4a -- Tidak --> D4
+    D4a --> D5
+    D5 --> D5a
+    D5a -- Tidak --> D5
+    D5a --> D7
+    D7 --> D7a
+    D7a -- Tidak --> D7
+    D7a --> D8
+    D8 --> D8a
+    D8a -- Tidak --> D11
+    D8a -- Ya --> D9
+    D9 --> D9a
+    D9a -- Tidak --> D9
+    D9a --> D12
+    D11 --> D11a
+    D11a -- Tidak --> D11
+    D11a --> D12
+    D12 --> D12a
+    D12a -- Tidak --> D12
+    D12a --> D13
+    D13 --> D13a
+    D13a -- Tidak --> D16
+    D13a -- Ya --> D14
+    D14 --> D14a
+    D14a -- Tidak --> D14
+    D14a --> E1
+    D16 --> D16a
+    D16a -- Tidak --> D16
+    D16a --> E1
+    E1 --> E2
+    E2 -- Ya --> E3
+    E2 -- Tidak --> E4
+    E4 -- Ya --> E5
+    E4 -- Tidak --> E6
+    E6 -- Ya --> E7
+    E6 -- Tidak --> E8
+    E3 --> E9
+    E5 --> E9
+    E7 --> E9
+    E8 --> E9
+    E9 --> B1
+    X1 --> X2
+    X2 --> X2a
+    X2a -- Tidak --> X2
+    X2a --> X3
+    X3 --> X4
+    X4 --> X5
+    X5 --> X6
+    X6 -- Ya --> X7
+    X6 -- Tidak --> X8
+    X8 -- Ya --> X9
+    X8 -- Tidak --> X10
+    X10 --> X11
+    X11 --> X11a
+    X11a -- Tidak --> X11 & B1
+    X11a -- Ya --> X12
+    X7 --> B1
+    X9 --> B1
+    X12 --> B1
+```
 ## Penjelasan Workflow program
 1. Program menghitung penggunaan air dalam kehidupan sehari-hari meliputi kegiatan berikut ini:
 - minum
