@@ -4,12 +4,12 @@
 #include <math.h>
 #include <ctype.h>
 
-void startup();
-void surveiMandiri();
-void kalkulatorAir();
-void skalaASCII(char keyword[]);
-void badgeBijakAir();
-void tampilkanPertanyaan(const char* pertanyaan);
+void startup(); // Fungsi yang berperan dalam memulai program, kita akan menempatkan fungsi ini pada bagian-bagian penting dalam program seperti ketika program pertama kali dijalankan atau ketika program akan diulang kembali.
+void surveiMandiri(); // Fungsi yang berperan untuk memulai antarmuka survei/asesmen terhadap kualitas air yang dimiliki oleh user dengan akurasi yang tergantung pada metode/alat yang digunakan user.
+void kalkulatorAir(); // Fungsi yang berperan untuk memulai perhitungan terhadap penggunaan air oleh user.
+void skalaASCII(char keyword[]); // Fungsi digunakan untuk melakukan generalisasi teks sehingga tidak perlu menulis fungsi puts/printf secara redundan.
+void badgeBijakAir(); // Fungsi yang digunakan untuk melakukan generalisasi ASCII art ketika penggunaan air termasuk efisien/hemat atau ideal.
+void tampilkanPertanyaan(const char* pertanyaan); 
 void cekPenggunaanAir(const char* kegiatan, double nilai, double min, double maks);
 
 typedef enum { KURANG, IDEAL, BOROS } penggunaanAir;
@@ -30,11 +30,11 @@ typedef enum {
 }sistemPenilaian;
 
 int main() {
-	startup();
+	startup(); // Fungsi main untuk memulai keseluruhan program.
 	return 0;
 }
 
-int penilaianSurvei(dataAir data, int alat[]);
+int penilaianSurvei(dataAir data, int alat[]); // Fungsi digunakan untuk melakukan perhitungan pada skor.
 
 void startup() {
 	int i, input = 0;
@@ -57,7 +57,7 @@ void startup() {
 		}
 	}
 	
-	switch (input) {
+	switch (input) { // Switch case digunakan untuk memilih program mana yang akan dipakai atau keluar berdasarkan input user.
 		case 1 :
 			surveiMandiri();
 			startup();
@@ -66,12 +66,12 @@ void startup() {
 			kalkulatorAir();
 			startup();
 			break;
-		case 3 :
+		case 3 : // Ketika user menginput pilihan yang ketiga '3', maka program akan keluar.
 			break;
 	}
 }
 
-void surveiMandiri() {
+void surveiMandiri() { 
     int i, skor, alat[3];
 	dataAir* data = (dataAir*) malloc (sizeof(dataAir));
 	char input = 'a', temp[20];
@@ -452,8 +452,8 @@ void tampilkanPertanyaan(const char* pertanyaan) {
 	}
 } 
 
-//Penghargaanuntuk user yang bisa mengkonsumsi air secara ideal dalam satu hari
-//implementasi penggunaan ASCII ART dari modul 4 dengan topik do,while,for,switch
+//Penghargaan untuk user yang bisa mengkonsumsi air secara ideal dalam satu hari
+//Implementasi penggunaan ASCII ART dari modul 4 dengan topik do,while,for,switch
 void badgeBijakAir() {
 	printf("|Selamat, Anda mendapatkan Badge Bijak Air!!%6s|\n", "");
 	printf("|                       /\\ %23s|\n", "");
