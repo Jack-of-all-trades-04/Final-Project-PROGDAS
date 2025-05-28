@@ -301,8 +301,8 @@ int penilaianSurvei(dataAir data, int alat[]) {
 
 }
 
-//fungsi untuk menghitung penggunaan air
-//penerapan modul 5 praktikum yaitu modul function
+// Fungsi untuk menghitung penggunaan air
+// Penerapan modul 5 praktikum yaitu modul function
 void kalkulatorAir() {
     int i, j;
     char temp[20];
@@ -339,6 +339,7 @@ void kalkulatorAir() {
         printf("\n---------------------------------------------------\n");
         printf("|           Anggota keluarga ke-%d               |\n", i+1);
         printf("---------------------------------------------------\n");
+	printf("|	Masukkan angka dalam satuan liter	 |\n");
 
         double totalAnggota = 0.0;
         for (j = 0; j < 6; j++) {
@@ -361,7 +362,10 @@ void kalkulatorAir() {
 
     printf("---------------------------------------------------\n");
     printf("|              Hasil Kalkulator                  |\n");
-    printf("| Penggunaan air sebanyak: %.2f liter            |\n", *total_air);
+    printf("| Penggunaan air sebanyak: %.2f liter%13s", *total_air,"");
+    int total_space = floor(log10(*total_air)) + 1;
+    for (i = total_space; i > 0; i--) printf("\b"); // Dynamic spacing agar ketika terjadi kelipatan 10 spasi akan menyesuaikan dengan sendirinya.
+    printf("|\n");
     printf("| Detail :                                       |\n");
 
     // Tampilkan kategori per kegiatan
