@@ -74,10 +74,10 @@ Bandingkan dengan pedoman WHO 50–100 L/orang/hari:
 - `> 100 L → “Boros”`
 
 ## Job Desc
-- Novan : Kumpulin Data Referensi, Membuat framework template dan Membuat Fungsi Survei Dasar
-- Nabil : Menyempurnakan Fungsi Survei dan Memperbaiki Penilaian Survei
-- Ferdy : Menambahkan fitur pada program, Debugging code dan Masukkan pada framework template
-- Alam  : Menyempurnakan Fungsi Kalkulator dan Debugging Code
+- Novan : Mengumpulkan data referensi, membuat framework template, dan membuat fungsi survei dasar
+- Nabil : Menyempurnakan fungsi survei dan memperbaiki penilaian survei
+- Ferdy : Menambahkan fitur pada program, melakukan debugging pada program dan memasukkannya pada framework template
+- Alam  : Menyempurnakan fungsi pada program, menambahkan penjelasan kode berupa komentar, dan melakukan debugging pada kode.
 
 ## Workflow Program
 ```mermaid
