@@ -64,7 +64,6 @@ single space, no space before or after paragraphs, etc.
 | Cuci baju              | `cuci_baju` (#/minggu)  | × 60 L per kali ÷ 7 hari         | —                             |
 | Wudhu / Cuci tangan    | `wudhu` (#/hari)        | × 3 L per kali                   | —                             |
 | Siram tanaman          | `siram_tanaman` (L)     | langsung input                   | —                             |
-| Lain-lain (toilet, dsb)| `lain_lain` (L/hari)    | estimasi / langsung input        | —                             |
 
 **Total penggunaan per hari = jumlah semua aktivitas.**
 
@@ -72,6 +71,7 @@ Bandingkan dengan pedoman WHO 50–100 L/orang/hari:
 - `< 50 L → “Perlu Perhatian Kebersihan”`
 - `50–100 L → “Ideal”`
 - `> 100 L → “Boros”`
+Lalu Ideal jika setidaknya ada 4 penggunaan yang sudah semestinya.
 
 ## Job Desc
 - Novan : Mengumpulkan data referensi, membuat framework template, dan membuat fungsi survei dasar
