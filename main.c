@@ -73,208 +73,227 @@ void startup() {
 
 void surveiMandiri() { 
     int i, skor, alat[3];
-	dataAir* data = (dataAir*) malloc (sizeof(dataAir));
-	char input = 'a', temp[20];
-	
+    dataAir* data = (dataAir*) malloc (sizeof(dataAir));
+    char input = 'a', temp[20];
+    
+    // Menampilkan header survei mandiri
     for (i = 0; i < 51; i++) printf ("-");
     printf ("\n|%18sBijak Air 1.0%18s|\n", "", "");
     printf ("|%18sSurvei Mandiri%17s|\n", "", "");
     for (i = 0; i < 51; i++) printf ("-");
-	
-	printf ("\n|I. Survei Fisik dan Sensorik%21s|","");
+    
+    // Bagian survei fisik dan sensorik
+    printf ("\n|I. Survei Fisik dan Sensorik%21s|","");
     printf("\n|Jawablah pertanyaan-pertanyaan berikut%11s|\n|%49s|", "", "");
     
+    // Input skala bau air (1 = tidak bau, 5 = sangat bau)
     printf ("\n|1. Seberapa bau air Anda?%24s|", "");
     skalaASCII("Bau");
     data->bau = -1;
     while (data->bau < 1 || data->bau > 5) {
-    	printf ("|Jawaban Anda : ");
-    	scanf ("%s", &temp);
-    	data->bau = atoi(temp);
-    	if (data->bau < 1 || data->bau > 5) {
-    		printf ("|Jawaban tidak valid, coba lagi%19s|\n", "");
-		}
-	}
-	printf ("|%49s|\n|2.a Apakah anda punya alat Nephelometer atau %4s|\n|    Spektrofotometer / kolorimeter?  (Y/N)%7s|", "", "", "");
-	
-	while(input != 'Y' && input != 'N') {
-		printf ("\n|Jawaban Anda : ");
-		scanf (" %c", &input);
-		input = toupper(input);
-		if (input != 'Y' && input != 'N') printf ("|Jawaban tidak valid, hanya menerima 'Y' dan 'N'  |");
-	}
-	
-	switch(input) {
-		case 'Y' :
-			alat[0] = 1;
-			printf ("|2.b Berapa NTU yang muncul?%22s|\n", "");
-    		data->kekeruhan.decimal = -1;
-    		while (data->kekeruhan.decimal <= 0) {
-    			printf ("|Jawaban Anda : ");
-    			scanf ("%s", &temp);
-    			data->kekeruhan.decimal = atof(temp);
-    			if (data->kekeruhan.decimal <= 0) printf ("|Jawaban tidak valid, coba lagi%19s|\n", "");
-			}
-			printf ("|2.c Berapa TCU yang muncul?%22s|\n", "");
-    		data->TCU = -1;
-    		while (data->TCU <= 0) {
-    			printf ("|Jawaban Anda : ");
-    			scanf ("%s", &temp);
-    			data->TCU = atof(temp);
-    			if (data->TCU <= 0) printf ("|Jawaban tidak valid, coba lagi%19s|\n", "");
-			}
-			break;
-		case 'N' :
-			alat[0] = 0;
-			printf ("|2.b Seberapa kotor air Anda?%21s|", "");
-    		skalaASCII("Kotor");
-    		while (data->kekeruhan.integer < 1 || data->kekeruhan.integer > 5) {
-    			printf ("|Jawaban Anda : ");
-    			scanf ("%s", &temp);
-    			data->kekeruhan.integer = atoi(temp);
-    			if (data->kekeruhan.integer < 1 || data->kekeruhan.integer > 5) printf ("|Jawaban tidak valid, coba lagi%19s|\n", "");
-			}
-			break;
-	}
+        printf ("|Jawaban Anda : ");
+        scanf ("%s", &temp);
+        data->bau = atoi(temp);
+        if (data->bau < 1 || data->bau > 5) {
+            printf ("|Jawaban tidak valid, coba lagi%19s|\n", "");
+        }
+    }
     
+    // Pertanyaan tentang kepemilikan alat ukur kekeruhan
+    printf ("|%49s|\n|2.a Apakah anda punya alat Nephelometer atau %4s|\n|    Spektrofotometer / kolorimeter?  (Y/N)%7s|", "", "", "");
+    while(input != 'Y' && input != 'N') {
+        printf ("\n|Jawaban Anda : ");
+        scanf (" %c", &input);
+        input = toupper(input);
+        if (input != 'Y' && input != 'N') printf ("|Jawaban tidak valid, hanya menerima 'Y' dan 'N'  |");
+    }
+    
+    // Input nilai kekeruhan berdasarkan alat atau persepsi
+    switch(input) {
+        case 'Y' :
+            alat[0] = 1;
+            printf ("|2.b Berapa NTU yang muncul?%22s|\n", "");
+            data->kekeruhan.decimal = -1;
+            while (data->kekeruhan.decimal <= 0) {
+                printf ("|Jawaban Anda : ");
+                scanf ("%s", &temp);
+                data->kekeruhan.decimal = atof(temp);
+                if (data->kekeruhan.decimal <= 0) printf ("|Jawaban tidak valid, coba lagi%19s|\n", "");
+            }
+            printf ("|2.c Berapa TCU yang muncul?%22s|\n", "");
+            data->TCU = -1;
+            while (data->TCU <= 0) {
+                printf ("|Jawaban Anda : ");
+                scanf ("%s", &temp);
+                data->TCU = atof(temp);
+                if (data->TCU <= 0) printf ("|Jawaban tidak valid, coba lagi%19s|\n", "");
+            }
+            break;
+        case 'N' :
+            alat[0] = 0;
+            printf ("|2.b Seberapa kotor air Anda?%21s|", "");
+            skalaASCII("Kotor");
+            while (data->kekeruhan.integer < 1 || data->kekeruhan.integer > 5) {
+                printf ("|Jawaban Anda : ");
+                scanf ("%s", &temp);
+                data->kekeruhan.integer = atoi(temp);
+                if (data->kekeruhan.integer < 1 || data->kekeruhan.integer > 5) printf ("|Jawaban tidak valid, coba lagi%19s|\n", "");
+            }
+            break;
+    }
+    
+    // Pertanyaan tentang kepemilikan alat ukur pH
     printf ("|%49s|\n|3.a Apakah anda punya alat pH Meter atau kertas  |\n|    lakmus (Y/N)%33s|", "", "");
     input = 'a';
     while(input != 'Y' && input != 'N') {
-		printf ("\n|Jawaban Anda : ");
-		scanf (" %c", &input);
-		input = toupper(input);
-		if (input != 'Y' && input != 'N') printf ("|Jawaban tidak valid, hanya menerima 'Y' dan 'N'  |");
-	}
-	data->pH = -1;
-	if (input == 'Y') {
-		alat[1] = 1;
-		printf ("|3.b Masukkan pH yang terukur%21s|\n", "");
-		while (data->pH <= 0 || data->pH > 14) {
-    		printf ("|Jawaban Anda : ");
-    		scanf("%s", &temp);
-    		data->pH = atoi(temp);
-    		if (data->pH <= 0 || data->pH > 14) printf ("|Jawaban tidak valid, coba lagi%19s|\n", "");
-		}
-	}
-	else {
-		alat[1] = 0;
-		printf ("|3.b Seberapa berasa air Anda?%20s|", "");
-	    skalaASCII("Berasa");
-	    data->rasa = 0;
-	    while (data->rasa < 1 || data->rasa > 5) {
-	    	printf ("|Jawaban Anda : ");
-	    	scanf("%s", &temp);
-	    	data->rasa = atoi(temp);
-	    	if (data->rasa < 1 || data->rasa > 5) {
-	    		printf ("|Jawaban tidak valid, coba lagi%19s|\n", "");
-			}
-		}
-	}
+        printf ("\n|Jawaban Anda : ");
+        scanf (" %c", &input);
+        input = toupper(input);
+        if (input != 'Y' && input != 'N') printf ("|Jawaban tidak valid, hanya menerima 'Y' dan 'N'  |");
+    }
+    data->pH = -1;
+    // Input nilai pH jika punya alat, jika tidak maka input rasa air
+    if (input == 'Y') {
+        alat[1] = 1;
+        printf ("|3.b Masukkan pH yang terukur%21s|\n", "");
+        while (data->pH <= 0 || data->pH > 14) {
+            printf ("|Jawaban Anda : ");
+            scanf("%s", &temp);
+            data->pH = atoi(temp);
+            if (data->pH <= 0 || data->pH > 14) printf ("|Jawaban tidak valid, coba lagi%19s|\n", "");
+        }
+    }
+    else {
+        alat[1] = 0;
+        printf ("|3.b Seberapa berasa air Anda?%20s|", "");
+        skalaASCII("Berasa");
+        data->rasa = 0;
+        while (data->rasa < 1 || data->rasa > 5) {
+        	printf ("|Jawaban Anda : ");
+        	scanf("%s", &temp);
+        	data->rasa = atoi(temp);
+        	if (data->rasa < 1 || data->rasa > 5) {
+        		printf ("|Jawaban tidak valid, coba lagi%19s|\n", "");
+            }
+        }
+    }
     
+    // Input skala endapan air (1 = tidak ada endapan, 5 = sangat banyak)
     printf ("|%49s|\n|4. Seberapa banyak endapan air Anda?%13s|", "", "");
     skalaASCII("Banyak");
     data->endapan = 0;
     while (data->endapan < 1 || data->endapan > 5) {
-    	printf ("|Jawaban Anda : ");
-    	scanf("%s", &temp);
-    	data->endapan = atoi(temp);
-    	if (data->endapan < 1 || data->endapan > 5) {
-    		printf ("|Jawaban tidak valid, coba lagi%19s|\n", "");
-		}
-	}
+        printf ("|Jawaban Anda : ");
+        scanf("%s", &temp);
+        data->endapan = atoi(temp);
+        if (data->endapan < 1 || data->endapan > 5) {
+            printf ("|Jawaban tidak valid, coba lagi%19s|\n", "");
+        }
+    }
     
+    // Pertanyaan tentang kepemilikan alat tes Coliform
     printf ("|%49s|\n|5.a Apakah anda punya alat tes Coliform? (Y/N)   |", "");
     input = 'a';
     while(input != 'Y' && input != 'N') {
-		printf ("\n|Jawaban Anda : ");
-		scanf (" %c", &input);
-		input = toupper(input);
-		if (input != 'Y' && input != 'N') printf ("|Jawaban tidak valid, hanya menerima 'Y' dan 'N'  |");
-	}
-	
-	if (input == 'Y') {
-		alat[2] = 1;
-		printf ("|5.b Masukkan angka CFU/100mL%21s|\n", "");
-		data->eColi = -1;
-    	while (data->eColi <= 0) {
-	    	printf ("|Jawaban Anda : ");
-	    	scanf ("%s", &temp);
-	    	data->eColi = atof(temp);
-	    	if (data->eColi <= 0 ) printf ("|Jawaban tidak valid, coba lagi%19s|\n", "");
-		}
-	}
-	else {
-		alat[2] = 0;
-		printf ("|5.b Apakah anda sering diare?%20s|", "");
-		skalaASCII("Sering");
-		data->diare = -1;
-    	while (data->diare < 1 || data->diare > 5) {
-	    	printf ("|Jawaban Anda : ");
-	    	scanf("%s", temp);
-	    	data->diare = atoi(temp);
-	    	if (data->diare < 1 || data->diare > 5) printf ("|Jawaban tidak valid, coba lagi%19s|\n", "");
-		}
-	}
-	
-	skor = penilaianSurvei(*data, alat);
+        printf ("\n|Jawaban Anda : ");
+        scanf (" %c", &input);
+        input = toupper(input);
+        if (input != 'Y' && input != 'N') printf ("|Jawaban tidak valid, hanya menerima 'Y' dan 'N'  |");
+    }
+    
+    // Input nilai eColi jika punya alat, jika tidak maka input skala sering diare
+    if (input == 'Y') {
+        alat[2] = 1;
+        printf ("|5.b Masukkan angka CFU/100mL%21s|\n", "");
+        data->eColi = -1;
+        while (data->eColi <= 0) {
+        	printf ("|Jawaban Anda : ");
+        	scanf ("%s", &temp);
+        	data->eColi = atof(temp);
+        	if (data->eColi <= 0 ) printf ("|Jawaban tidak valid, coba lagi%19s|\n", "");
+        }
+    }
+    else {
+        alat[2] = 0;
+        printf ("|5.b Apakah anda sering diare?%20s|", "");
+        skalaASCII("Sering");
+        data->diare = -1;
+        while (data->diare < 1 || data->diare > 5) {
+        	printf ("|Jawaban Anda : ");
+        	scanf("%s", temp);
+        	data->diare = atoi(temp);
+        	if (data->diare < 1 || data->diare > 5) printf ("|Jawaban tidak valid, coba lagi%19s|\n", "");
+        }
+    }
+    
+    // Hitung skor kelayakan air berdasarkan input survei
+    skor = penilaianSurvei(*data, alat);
 
-	for (i = 0; i < 51; i++) printf ("-");
+    // Menampilkan hasil penilaian dan kategori kelayakan air
+    for (i = 0; i < 51; i++) printf ("-");
     printf("\n|%18sHasil Penilaian%16s|\n", "", "");
     sprintf (temp, "%d", skor);
     printf("|Skor Kelayakan Air: %-29s|\n|", temp);
-	printf ("Tingkat Kelayakan Air : ");
-	if (skor < 50) {
-		printf("Tidak Layak%14s|\n","");
-	} else if (skor < 70) {
-		printf("Hati-hati%16s|\n", "");
-	} else if (skor < 85) {
-		printf("Layak%20s|\n", "");
-	} else {
-		printf("Sangat Layak%13s|\n","");
-	}
-	
-	int alatTerpakai = alat[0] + alat[1] + alat[2];
-	switch (alatTerpakai) {
-		case TIDAKAKURAT :
-			printf ("|Kategori : Tidak Akurat%26s|\n", "");
-			printf ("|Akurasi: 60 - 70%%%32s|\n", "");
-			break;
-		case CUKUPAKURAT :
-			printf ("|Kategori : Cukup Akurat%26s|\n", "");
-			printf ("|Akurasi: 70 - 80%%%32s|\n", "");
-			break;
-		case AKURAT :
-			printf ("|Kategori : Akurat%32s|\n", "");
-			printf ("|Akurasi: 80 - 90%%%32s|\n", "");
-			break;
-		case SANGATAKURAT : 
-			printf ("|Kategori : Sangat Akurat%25s|\n", "");
-			printf ("|Akurasi: 90 - 100%%%31s|\n", "");
-			break;
-	}
-	for (i = 0; i < 51; i++) printf ("-");
-	puts ("\n");
-	free(data);
+    printf ("Tingkat Kelayakan Air : ");
+    if (skor < 50) {
+        printf("Tidak Layak%14s|\n","");
+    } else if (skor < 70) {
+        printf("Hati-hati%16s|\n", "");
+    } else if (skor < 85) {
+        printf("Layak%20s|\n", "");
+    } else {
+        printf("Sangat Layak%13s|\n","");
+    }
+    
+    // Menampilkan kategori akurasi berdasarkan jumlah alat yang digunakan
+    int alatTerpakai = alat[0] + alat[1] + alat[2];
+    switch (alatTerpakai) {
+        case TIDAKAKURAT :
+            printf ("|Kategori : Tidak Akurat%26s|\n", "");
+            printf ("|Akurasi: 60 - 70%%%32s|\n", "");
+            break;
+        case CUKUPAKURAT :
+            printf ("|Kategori : Cukup Akurat%26s|\n", "");
+            printf ("|Akurasi: 70 - 80%%%32s|\n", "");
+            break;
+        case AKURAT :
+            printf ("|Kategori : Akurat%32s|\n", "");
+            printf ("|Akurasi: 80 - 90%%%32s|\n", "");
+            break;
+        case SANGATAKURAT : 
+            printf ("|Kategori : Sangat Akurat%25s|\n", "");
+            printf ("|Akurasi: 90 - 100%%%31s|\n", "");
+            break;
+    }
+    for (i = 0; i < 51; i++) printf ("-");
+    puts ("\n");
+    free(data);
 }
 
+// Fungsi digunakan untuk melakukan perhitungan pada skor survei air
 int penilaianSurvei(dataAir data, int alat[]) {
 
     float skor = 0, alatTerpakai = 0;
     
     // Skala 1 (baik) - 5 (buruk), skor optimal jika nilai 1
+    // Penilaian bau air
     skor += ((5 - data.bau) / 4.0) * 20;
     
+    // Penilaian kekeruhan air
     if (alat[0] == 1) {
         alatTerpakai++;
+        // Jika menggunakan alat ukur, gunakan nilai decimal dan TCU
         if (data.kekeruhan.decimal > 5) skor += (1 - (data.kekeruhan.decimal / 5.0)) * 15;
         else skor += 15;
         if (data.TCU > 50) skor += (1 - (data.TCU / 50.0)) * 10;
         else skor += 10;
     }
     else {
+        // Jika tidak menggunakan alat, gunakan persepsi integer
         skor += ((5 - data.kekeruhan.integer) / 4.0) * 25;
     }
     
+    // Penilaian pH atau rasa air
     if (alat[1] == 1) {
         alatTerpakai++;
         float range = 0;
@@ -287,8 +306,10 @@ int penilaianSurvei(dataAir data, int alat[]) {
         skor += ((5 - data.rasa) / 4.0) * 20;
     }
     
+    // Penilaian endapan air
     skor += ((5 - data.endapan) / 4.0) * 15;
     
+    // Penilaian eColi atau sering diare
     if (alat[2] == 1) {
         alatTerpakai++;
         if (data.eColi > 50) skor += (1 - (data.eColi / 50.0)) * 20;
@@ -297,8 +318,8 @@ int penilaianSurvei(dataAir data, int alat[]) {
     else {
         skor += ((5 - data.diare) / 4.0) * 20;
     }
+    // Skor akhir dikembalikan untuk ditampilkan pada surveiMandiri
     return skor;
-
 }
 
 // Fungsi untuk menghitung penggunaan air
@@ -472,4 +493,3 @@ void badgeBijakAir() {
 	printf("|               \\                /     %11s|\n", "");
 	printf("|                `-.__..__..__..`      %11s|\n", "");
 }
-
