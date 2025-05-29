@@ -364,7 +364,7 @@ void kalkulatorAir() {
     printf("|              Hasil Kalkulator                  |\n");
     printf("| Penggunaan air sebanyak: %.2f liter%13s", *total_air,"");
     int total_space = floor(log10(*total_air)) + 1;
-    for (i = total_space; i > 0; i--) printf("\b"); // Dynamic spacing agar ketika terjadi kelipatan 10 spasi akan menyesuaikan dengan sendirinya.
+    for (i = total_space; i > 0; i--) printf("\b"); // Dynamic spacing agar ketika terjadi kelipatan 10, spasi akan menyesuaikan dengan sendirinya.
     printf("|\n");
     printf("| Detail :                                       |\n");
 
