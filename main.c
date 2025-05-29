@@ -9,23 +9,32 @@ void surveiMandiri(); // Fungsi yang berperan untuk memulai antarmuka survei/ase
 void kalkulatorAir(); // Fungsi yang berperan untuk memulai perhitungan terhadap penggunaan air oleh user.
 void skalaASCII(char keyword[]); // Fungsi digunakan untuk melakukan generalisasi teks sehingga tidak perlu menulis fungsi puts/printf secara redundan.
 void badgeBijakAir(); // Fungsi yang digunakan untuk melakukan generalisasi ASCII art ketika penggunaan air termasuk efisien/hemat atau ideal.
+<<<<<<< Updated upstream
 void tampilkanPertanyaan(const char* pertanyaan); 
 void cekPenggunaanAir(const char* kegiatan, double nilai, double min, double maks);
 
 typedef enum { KURANG, IDEAL, BOROS } penggunaanAir;
+=======
+void tampilkanPertanyaan(const char* pertanyaan); // Fungsi untuk menampilkan pertanyaan pada bagian kalkulator air. 
+int cekPenggunaanAir(const char* kegiatan, double nilai, double min, double maks); // Fungsi untuk menghitung nilai ideal ketika menggunakan kalkulator air.
 
-typedef struct {
+typedef enum { // Enum digunakan untuk memilih kategori penggunaan air.
+	KURANG, IDEAL, BOROS
+}kategoriPenggunaanAir;
+>>>>>>> Stashed changes
+
+typedef struct { // Struct digunakan untuk menyimpan indeks parameter-parameter kualitas kelayakan air.
 	float pH, eColi, TCU;
 	int bau, rasa, endapan, diare;
 	
-	union {
+	union { // Union digunakan untuk membedakan mana data yang menggunakan alat (float) dan mana yang tidak memiliki alat (integer)
 		float decimal;
 		int integer;
 	}kekeruhan;
 	
 }dataAir;
 
-typedef enum {
+typedef enum { // Enum digunakan untuk menilai mana yang masuk kategori tidak akurat sampai sangat akurat berdasarkan alat yang digunakan.
 	TIDAKAKURAT, CUKUPAKURAT, AKURAT, SANGATAKURAT
 }sistemPenilaian;
 
@@ -312,6 +321,7 @@ void kalkulatorAir() {
     printf("|%18sKalkulator Air%17s|\n", "", "");
     for (i = 0; i < 51; i++) printf("-");
 
+<<<<<<< Updated upstream
     int jumlahAnggota;
     printf("\nMasukkan jumlah anggota keluarga anda: ");
     scanf("%d", &jumlahAnggota);
@@ -335,6 +345,18 @@ void kalkulatorAir() {
     double penggunaanMinimal[] = {2, 30, 10, 50, 1.5*5.0, 5};
     double penggunaanMaksimal[] = {3, 60, 20, 100, 3*5.0, 20};
 
+=======
+    while (jumlahAnggota <= 0) {
+    	printf("\n|Masukkan jumlah anggota keluarga anda: ");
+    	scanf(" %s", &temp);
+    	jumlahAnggota = atoi(temp);
+    	if (jumlahAnggota <= 0) printf ("|Jawaban tidak valid, coba lagi%19s|", "");
+	}
+	
+	// Set array semua penggunaan air ke 0
+	for (i = 0; i < 6; i++) penggunaanAir[i] = 0;
+	
+>>>>>>> Stashed changes
     for (i = 0; i < jumlahAnggota; i++) {
         printf("\n---------------------------------------------------\n");
         printf("|           Anggota keluarga ke-%d               |\n", i+1);
@@ -426,8 +448,13 @@ void kalkulatorAir() {
     free(total_air);
 }
 
+<<<<<<< Updated upstream
 //mengatur spacing untuk bisa rapi dan sejajar dengan survey
 void cekPenggunaanAir(const char* kegiatan, double nilai, double minimal, double maksimal) {
+=======
+// Mengatur spacing untuk bisa rapi dan sejajar dengan survey
+int cekPenggunaanAir(const char* kegiatan, double nilai, double minimal, double maksimal) {
+>>>>>>> Stashed changes
 	char temp1[20], temp2[20];
 	sprintf (temp1, "%.2lf", nilai);
 	printf ("|%-20s : %-19s  liter|\n", kegiatan, temp1);
@@ -456,8 +483,8 @@ void tampilkanPertanyaan(const char* pertanyaan) {
 	}
 } 
 
-//Penghargaan untuk user yang bisa mengkonsumsi air secara ideal dalam satu hari
-//Implementasi penggunaan ASCII ART dari modul 4 dengan topik do,while,for,switch
+// Penghargaan untuk user yang bisa mengkonsumsi air secara ideal dalam satu hari
+// Implementasi penggunaan ASCII ART dari modul 4 dengan topik do,while,for,switch
 void badgeBijakAir() {
 	printf("|Selamat, Anda mendapatkan Badge Bijak Air!!%6s|\n", "");
 	printf("|                       /\\ %23s|\n", "");
